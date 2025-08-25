@@ -1,0 +1,9 @@
+
+<h2>Courses offered at ECE</h2>
+<ul>
+@for (course of courses(); track course.code) {
+  <li>
+    <app-course-list-item [course]="course"></app-course-list-item>
+  </li>
+}
+</ul>
