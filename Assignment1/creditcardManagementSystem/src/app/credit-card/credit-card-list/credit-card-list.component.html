@@ -1,1 +1,26 @@
-<p>credit-card-list works!</p>
+<div class="credit-card-list">
+  @if (creditCards.length === 0) {
+    <div class="empty-state">
+      <p>No credit cards found. Add your first credit card to get started.</p>
+    </div>
+  } @else {
+    <div class="card-grid">
+      @for (card of creditCards; track card.id) {
+        <div class="credit-card-item" (click)="navigateToDetails(card.id)">
+          <div class="card-header">
+            <span class="card-issuer">{{ card.issuer }}</span>
+          </div>
+          <div class="card-number">
+            •••• •••• •••• {{ card.card_number.slice(-4) }}
+          </div>
+          <div class="card-holder">
+            {{ card.cardholder_name }}
+          </div>
+          <div class="card-footer">
+            <span class="label">Click to view details</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

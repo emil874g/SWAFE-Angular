@@ -1,10 +1,49 @@
-<!-- Skeleton for HTML home page-->
-<div class="navbar">Navbar</div>
-
-
-<div class="homepage">
-
-</div>
-
-
-<div class="footer">Footer</div>
+@if (showLogin()) {
+  <div class="login-overlay">
+    <div class="login-container">
+      <h2>Login to Credit Card Manager</h2>
+      <form (ngSubmit)="login()">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input 
+            type="email" 
+            id="email" 
+            [(ngModel)]="loginEmail" 
+            name="email" 
+            required 
+            placeholder="prefix@bank.dk"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input 
+            type="password" 
+            id="password" 
+            [(ngModel)]="loginPassword" 
+            name="password" 
+            required 
+            placeholder="1234"
+            class="form-control"
+          />
+        </div>
+        @if (loginError) {
+          <div class="error-message">{{ loginError }}</div>
+        }
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <div class="login-info">
+        <p><strong>Note:</strong> First create a user at the API swagger documentation, then login with:</p>
+        <ul>
+          <li>Username: &#123;prefix&#125;&#64;bank.dk</li>
+          <li>Password: 1234</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+} @else {
+  <app-navbar></app-navbar>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+}

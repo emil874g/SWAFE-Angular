@@ -1,1 +1,117 @@
-<p>credit-card-screen works!</p>
+<div class="add-card-container">
+  <div class="form-wrapper">
+    <h1>Add New Credit Card</h1>
+
+    <form (ngSubmit)="onSubmit()" #cardForm="ngForm">
+      <div class="form-group">
+        <label for="card_number">Card Number *</label>
+        <input
+          type="text"
+          id="card_number"
+          name="card_number"
+          [(ngModel)]="creditCard.card_number"
+          class="form-control"
+          placeholder="Enter 7-16 digit card number"
+          required
+          pattern="[0-9]*"
+          maxlength="16"
+        />
+        @if (errors['card_number']) {
+          <span class="error-text">{{ errors['card_number'] }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="cardholder_name">Cardholder Name *</label>
+        <input
+          type="text"
+          id="cardholder_name"
+          name="cardholder_name"
+          [(ngModel)]="creditCard.cardholder_name"
+          class="form-control"
+          placeholder="Enter cardholder name"
+          required
+        />
+        @if (errors['cardholder_name']) {
+          <span class="error-text">{{ errors['cardholder_name'] }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="csc_code">CSC Code *</label>
+        <input
+          type="text"
+          id="csc_code"
+          name="csc_code"
+          [(ngModel)]="creditCard.csc_code"
+          class="form-control"
+          placeholder="Enter 3-digit CSC"
+          required
+          pattern="[0-9]{3}"
+          maxlength="3"
+        />
+        @if (errors['csc_code']) {
+          <span class="error-text">{{ errors['csc_code'] }}</span>
+        }
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="expiration_date_month">Expiration Month *</label>
+          <input
+            type="number"
+            id="expiration_date_month"
+            name="expiration_date_month"
+            [(ngModel)]="creditCard.expiration_date_month"
+            class="form-control"
+            min="1"
+            max="12"
+            required
+          />
+          @if (errors['expiration_date_month']) {
+            <span class="error-text">{{ errors['expiration_date_month'] }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="expiration_date_year">Expiration Year *</label>
+          <input
+            type="number"
+            id="expiration_date_year"
+            name="expiration_date_year"
+            [(ngModel)]="creditCard.expiration_date_year"
+            class="form-control"
+            [min]="2024"
+            required
+          />
+          @if (errors['expiration_date_year']) {
+            <span class="error-text">{{ errors['expiration_date_year'] }}</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="issuer">Issuer *</label>
+        <input
+          type="text"
+          id="issuer"
+          name="issuer"
+          [(ngModel)]="creditCard.issuer"
+          class="form-control"
+          placeholder="e.g., Visa, Mastercard, Amex"
+          required
+        />
+        @if (errors['issuer']) {
+          <span class="error-text">{{ errors['issuer'] }}</span>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Adding...' : 'Add Credit Card' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

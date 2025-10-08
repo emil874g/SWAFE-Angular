@@ -1,0 +1,93 @@
+.transactions-list {
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    background: white;
+    border-radius: 8px;
+  }
+
+  .transactions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+
+    .transaction-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .transaction-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #ecf0f1;
+        border-radius: 8px 8px 0 0;
+
+        .card-number {
+          font-weight: 600;
+          color: #2c3e50;
+        }
+
+        .btn-delete {
+          background-color: #e74c3c;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 28px;
+          height: 28px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+          font-size: 1.2rem;
+          line-height: 1;
+
+          &:hover {
+            background-color: #c0392b;
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      .transaction-body {
+        padding: 1.5rem;
+
+        .transaction-detail {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid #ecf0f1;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          label {
+            font-weight: 600;
+            color: #7f8c8d;
+          }
+
+          span {
+            color: #2c3e50;
+
+            &.amount {
+              font-weight: bold;
+              color: #27ae60;
+              font-size: 1.1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

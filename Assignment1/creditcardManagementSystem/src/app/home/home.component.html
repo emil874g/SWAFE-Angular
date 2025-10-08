@@ -1,1 +1,14 @@
-<p>home works!</p>
+<div class="home-container">
+  <div class="header">
+    <h1>Credit Card Management</h1>
+    <p>Manage your company credit cards and track expenses</p>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">Loading credit cards...</div>
+  } @else if (error()) {
+    <div class="error">{{ error() }}</div>
+  } @else {
+    <app-credit-card-list [creditCards]="creditCards()"></app-credit-card-list>
+  }
+</div>

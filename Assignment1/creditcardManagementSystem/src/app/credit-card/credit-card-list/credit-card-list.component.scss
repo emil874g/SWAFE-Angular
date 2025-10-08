@@ -1,0 +1,73 @@
+.credit-card-list {
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+  }
+
+  .credit-card-item {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      .card-issuer {
+        font-weight: bold;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+      }
+    }
+
+    .card-number {
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      font-family: 'Courier New', monospace;
+    }
+
+    .card-holder {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      opacity: 0.8;
+
+      .label {
+        font-style: italic;
+      }
+    }
+  }
+}

@@ -1,1 +1,34 @@
-<p>transactions-list works!</p>
+<div class="transactions-list">
+  @if (transactions.length === 0) {
+    <div class="empty-state">
+      <p>No transactions found.</p>
+    </div>
+  } @else {
+    <div class="transactions-grid">
+      @for (transaction of transactions; track transaction.id) {
+        <div class="transaction-card">
+          <div class="transaction-header">
+            <span class="card-number">Card: {{ transaction.card_number }}</span>
+            <button class="btn-delete" (click)="deleteTransaction(transaction.id)" title="Delete transaction">
+              ✕
+            </button>
+          </div>
+          <div class="transaction-body">
+            <div class="transaction-detail">
+              <label>Date:</label>
+              <span>{{ transaction.date | date:'medium' }}</span>
+            </div>
+            <div class="transaction-detail">
+              <label>Amount:</label>
+              <span class="amount">{{ transaction.amount }} {{ transaction.currency }}</span>
+            </div>
+            <div class="transaction-detail">
+              <label>Comment:</label>
+              <span>{{ transaction.comment || 'No comment' }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

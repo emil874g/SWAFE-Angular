@@ -1,1 +1,66 @@
-<p>credit-card-details works!</p>
+<div class="details-container">
+  @if (loading()) {
+    <div class="loading">Loading credit card details...</div>
+  } @else if (error()) {
+    <div class="error">{{ error() }}</div>
+  } @else if (creditCard()) {
+    <div class="details-content">
+      <div class="header">
+        <button class="btn-back" (click)="goBack()">← Back to List</button>
+        <h1>Credit Card Details</h1>
+      </div>
+
+      <div class="card-details-card">
+        <div class="detail-group">
+          <label>Card Number:</label>
+          <span class="value">{{ creditCard()!.card_number }}</span>
+        </div>
+        
+        <div class="detail-group">
+          <label>Cardholder Name:</label>
+          <span class="value">{{ creditCard()!.cardholder_name }}</span>
+        </div>
+        
+        <div class="detail-group">
+          <label>CSC Code:</label>
+          <span class="value">{{ creditCard()!.csc_code }}</span>
+        </div>
+        
+        <div class="detail-group">
+          <label>Expiration Date:</label>
+          <span class="value">{{ creditCard()!.expiration_date_month | expirationDate:creditCard()!.expiration_date_year }}</span>
+        </div>
+        
+        <div class="detail-group">
+          <label>Issuer:</label>
+          <span class="value">{{ creditCard()!.issuer }}</span>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-danger" (click)="deleteCreditCard()">Delete Credit Card</button>
+        </div>
+      </div>
+
+      <div class="transactions-section">
+        <h2>Transactions</h2>
+        @if (transactions().length === 0) {
+          <p class="no-transactions">No transactions found for this card.</p>
+        } @else {
+          <div class="transactions-list">
+            @for (transaction of transactions(); track transaction.id) {
+              <div class="transaction-item">
+                <div class="transaction-info">
+                  <span class="transaction-date">{{ transaction.date | date:'short' }}</span>
+                  <span class="transaction-comment">{{ transaction.comment }}</span>
+                </div>
+                <div class="transaction-amount">
+                  {{ transaction.amount }} {{ transaction.currency }}
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
