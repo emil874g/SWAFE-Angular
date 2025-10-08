@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CreditCardScreenComponent } from './credit-card-screen.component';
 
 describe('CreditCardScreenComponent', () => {
@@ -21,3 +20,5 @@ describe('CreditCardScreenComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+export { CreditCardScreenComponent };
