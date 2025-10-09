@@ -1,10 +1,13 @@
-<nav class="navbar">
-  <div class="navbar__logo">
-    <a class="navbar__logo-link" routerLink="/home">Credit Card Manager</a>
-  </div>
-  <div class="navbar__menu">
-    <a class="navbar__link" routerLink="/home" routerLinkActive="navbar__link--active">Home</a>
-    <a class="navbar__link" routerLink="/creditcard" routerLinkActive="navbar__link--active">Add Credit Card</a>
-    <a class="navbar__link" routerLink="/transactions" routerLinkActive="navbar__link--active">Transactions</a>
-  </div>
-</nav>
+@if (authService.isAuthenticated()) {
+  <nav class="navbar">
+    <div class="navbar__logo">
+      <a class="navbar__logo-link" routerLink="/home">Credit Card Manager</a>
+    </div>
+    <div class="navbar__menu">
+      <a class="navbar__link" routerLink="/home" routerLinkActive="navbar__link--active">Home</a>
+      <a class="navbar__link" routerLink="/creditcard" routerLinkActive="navbar__link--active">Add Credit Card</a>
+      <a class="navbar__link" routerLink="/transactions" routerLinkActive="navbar__link--active">Transactions</a>
+      <button class="navbar__logout" (click)="logout()">Logout</button>
+    </div>
+  </nav>
+}

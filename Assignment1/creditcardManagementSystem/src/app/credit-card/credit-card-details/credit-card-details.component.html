@@ -23,8 +23,7 @@
             @if (creditCard()!.expiry_date_month && creditCard()!.expiry_date_year) {
             <div class="credit-card-details__info-row">
                 <span class="credit-card-details__label">Expiry Date:</span>
-                <span class="credit-card-details__value">{{ creditCard()!.expiry_date_month }}/{{
-                    creditCard()!.expiry_date_year }}</span>
+                <span class="credit-card-details__value">{{ creditCard()!.expiry_date_month | expiryDate:creditCard()!.expiry_date_year }}</span>
             </div>
             }
 
@@ -50,5 +49,10 @@
         <p>The credit card you're looking for doesn't exist.</p>
         <button class="credit-card-details__back-button" (click)="goBack()">Back to List</button>
     </div>
+    }
+ 
+    <!-- F3.4: Transactions list for this card -->
+    @if (creditCard()) {
+        <transactions-list [cardNumber]="creditCard()!.card_number"></transactions-list>
     }
 </div>

@@ -1,1 +1,57 @@
-<p>transactions-overview works!</p>
+<div class="transactions-overview">
+    <div class="transactions-overview__container">
+        <h2 class="transactions-overview__title">All Transactions</h2>
+
+     
+        <button class="transactions-overview__add-btn" (click)="addTransaction()">Add Transaction</button>
+
+ 
+        <div class="transactions-overview__filter">
+            <label for="cardFilter">Filter by Card Number:</label>
+            <select 
+                id="cardFilter" 
+                [value]="filterCardNumber()"
+                (change)="onFilterChange($any($event.target).value)"
+                class="transactions-overview__select"
+            >
+                <option value="">All Cards</option>
+                @for (card of creditCards(); track card.id) {
+                    <option [value]="card.card_number">{{ card.card_number }} - {{ card.cardholder_name }}</option>
+                }
+            </select>
+        </div>
+
+       
+        @if (filteredTransactions().length === 0) {
+            <p class="transactions-overview__empty">No transactions found.</p>
+        } @else {
+            <div class="transactions-overview__list">
+                @for (transaction of filteredTransactions(); track transaction.id) {
+                    <div class="transactions-overview__item">
+                        <div class="transactions-overview__row">
+                            <span class="transactions-overview__label">Credit Card:</span>
+                            <span class="transactions-overview__value">{{ transaction.credit_card }}</span>
+                        </div>
+                        <div class="transactions-overview__row">
+                            <span class="transactions-overview__label">Amount:</span>
+                            <span class="transactions-overview__amount">{{ transaction.amount }} {{ transaction.currency }}</span>
+                        </div>
+                        <div class="transactions-overview__row">
+                            <span class="transactions-overview__label">Date:</span>
+                            <span class="transactions-overview__date">{{ transaction.date | date:'short' }}</span>
+                        </div>
+                        @if (transaction.comment) {
+                            <div class="transactions-overview__row">
+                                <span class="transactions-overview__label">Comment:</span>
+                                <span class="transactions-overview__comment">{{ transaction.comment }}</span>
+                            </div>
+                        }
+                        <button class="transactions-overview__delete-btn" (click)="removeTransaction(transaction.id)">
+                            Delete Transaction
+                        </button>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

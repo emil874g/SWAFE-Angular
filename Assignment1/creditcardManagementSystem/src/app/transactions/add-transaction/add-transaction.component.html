@@ -1,0 +1,98 @@
+<div class="add-transaction">
+    <div class="add-transaction__container">
+        <h2 class="add-transaction__title">Add New Transaction</h2>
+
+        <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="add-transaction__form">
+            
+           
+            <div class="add-transaction__form-group">
+                <label class="add-transaction__label" for="credit_card">Credit Card *</label>
+                <select 
+                    id="credit_card"
+                    formControlName="credit_card"
+                    class="add-transaction__input"
+                    [class.add-transaction__input--error]="showError('credit_card')"
+                >
+                    <option value="">Select a card</option>
+                    @for (card of creditCards(); track card.id) {
+                        <option [value]="card.card_number">{{ card.card_number }} - {{ card.cardholder_name }}</option>
+                    }
+                </select>
+                @if (showError('credit_card')) {
+                    <span class="add-transaction__error">Card selection is required</span>
+                }
+            </div>
+
+            <div class="add-transaction__form-group">
+                <label class="add-transaction__label" for="amount">Amount *</label>
+                <input 
+                    type="number" 
+                    id="amount"
+                    formControlName="amount"
+                    class="add-transaction__input"
+                    [class.add-transaction__input--error]="showError('amount')"
+                    placeholder="0.00"
+                    step="0.01"
+                    min="0.01"
+                />
+                @if (showError('amount')) {
+                    <span class="add-transaction__error">Amount must be a number and is required</span>
+                }
+            </div>
+
+            <div class="add-transaction__form-group">
+                <label class="add-transaction__label" for="currency">Currency *</label>
+                <select 
+                    id="currency"
+                    formControlName="currency"
+                    class="add-transaction__input"
+                    [class.add-transaction__input--error]="showError('currency')"
+                >
+                    <option value="">Select currency</option>
+                    @for (curr of currencies; track curr) {
+                        <option [value]="curr">{{ curr }}</option>
+                    }
+                </select>
+                @if (showError('currency')) {
+                    <span class="add-transaction__error">Currency is required</span>
+                }
+            </div>
+
+            <div class="add-transaction__form-group">
+                <label class="add-transaction__label" for="date">Date *</label>
+                <input 
+                    type="date" 
+                    id="date"
+                    formControlName="date"
+                    class="add-transaction__input"
+                    [class.add-transaction__input--error]="showError('date')"
+                />
+                @if (showError('date')) {
+                    <span class="add-transaction__error">Date is required</span>
+                }
+            </div>
+
+            <div class="add-transaction__form-group">
+                <label class="add-transaction__label" for="comment">Comment</label>
+                <textarea 
+                    id="comment"
+                    formControlName="comment"
+                    class="add-transaction__input add-transaction__textarea"
+                    placeholder="Optional comment..."
+                    rows="3"
+                ></textarea>
+            </div>
+
+            <div class="add-transaction__actions">
+                <button 
+                    type="button" 
+                    class="add-transaction__button add-transaction__button--cancel"
+                    (click)="onCancel()">Cancel </button>
+                <button 
+                    type="submit" 
+                    class="add-transaction__button add-transaction__button--submit">Add Transaction
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

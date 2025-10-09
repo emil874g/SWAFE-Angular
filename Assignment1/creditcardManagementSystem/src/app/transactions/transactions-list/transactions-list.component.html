@@ -1,1 +1,37 @@
-<p>transactions-list works!</p>
+<div class="transactions-list">
+    <h3 class="transactions-list__title">Transactions</h3>
+    
+    @if (transactions().length === 0) {
+        <p class="transactions-list__empty">No transactions for this card.</p>
+    } @else {
+        <div class="transactions-list__items">
+            @for (transaction of transactions(); track transaction.id) {
+                <div class="transactions-list__item">
+                    <!-- F6.1.1: Display all transaction properties -->
+                    <div class="transactions-list__row">
+                        <span class="transactions-list__label">Credit Card:</span>
+                        <span class="transactions-list__value">{{ transaction.credit_card }}</span>
+                    </div>
+                    <div class="transactions-list__row">
+                        <span class="transactions-list__label">Amount:</span>
+                        <span class="transactions-list__amount">{{ transaction.amount }} {{ transaction.currency }}</span>
+                    </div>
+                    <div class="transactions-list__row">
+                        <span class="transactions-list__label">Date:</span>
+                        <span class="transactions-list__date">{{ transaction.date | date:'short' }}</span>
+                    </div>
+                    @if (transaction.comment) {
+                        <div class="transactions-list__row">
+                            <span class="transactions-list__label">Comment:</span>
+                            <span class="transactions-list__comment">{{ transaction.comment }}</span>
+                        </div>
+                    }
+                    <!-- F6.1.7: Remove option -->
+                    <button class="transactions-list__delete-btn" (click)="removeTransaction(transaction.id)">
+                        Delete
+                    </button>
+                </div>
+            }
+        </div>
+    }
+</div>

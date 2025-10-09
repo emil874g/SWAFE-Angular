@@ -24,6 +24,7 @@
   &__menu {
     display: flex;
     gap: 1.5rem;
+    align-items: center;
   }
 
   // Element: link (individual menu link)
@@ -41,6 +42,21 @@
     // Modifier: active state
     &--active {
       background-color: #3498db;
+    }
+  }
+
+  // Element: logout button
+  &__logout {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #c0392b;
     }
   }
 }

@@ -1,0 +1,37 @@
+<div class="login">
+  <div class="login__container">
+    <h2 class="login__title">Login</h2>
+    
+    <form (ngSubmit)="onSubmit()" class="login__form">
+      <div class="login__form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          [(ngModel)]="username" 
+          name="username"
+          class="login__input"
+          required
+        />
+      </div>
+
+      <div class="login__form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          [(ngModel)]="password" 
+          name="password"
+          class="login__input"
+          required
+        />
+      </div>
+
+      @if (error) {
+        <div class="login__error">{{ error }}</div>
+      }
+
+      <button type="submit" class="login__button">Login</button>
+    </form>
+  </div>
+</div>

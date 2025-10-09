@@ -75,7 +75,7 @@ export class CreditCardScreenComponent {
         this.submitted = true;
         if (this.creditCardForm.valid) {
             const newCard = {
-                id: this.creditCardService.generateCardId(),
+                id: '', // API will generate the ID
                 ...this.creditCardForm.value
             };
             this.creditCardService.addCreditCard(newCard);
