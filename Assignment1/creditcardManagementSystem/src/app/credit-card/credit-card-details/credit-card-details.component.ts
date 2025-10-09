@@ -18,23 +18,23 @@ export class CreditCardDetailsComponent implements OnInit {
     private router = inject(Router);
     private creditCardService = inject(CreditCardService);
 
-    cardId: string | null = null;
-    
+    cardNumber: string | null = null;
+
     // Use computed signal to reactively get the card from the service
     creditCard = computed(() => {
-        if (!this.cardId) return null;
-        return this.creditCardService.getCreditCardById(this.cardId);
+        if (!this.cardNumber) return null;
+        return this.creditCardService.getCreditCardByNumber(this.cardNumber);
     });
 
     ngOnInit(): void {
-        // Get the card ID from the route parameter
-        this.cardId = this.route.snapshot.paramMap.get('id');
+        // Get the card number from the route parameter
+        this.cardNumber = this.route.snapshot.paramMap.get('cardNumber');
     }
 
     deleteCard(): void {
         const card = this.creditCard();
         if (card && confirm('Are you sure you want to delete this credit card?')) {
-            this.creditCardService.removeCreditCard(card.card_number);
+            this.creditCardService.removeCreditCard(card.cardNumber);
             this.goBack();
         }
     }

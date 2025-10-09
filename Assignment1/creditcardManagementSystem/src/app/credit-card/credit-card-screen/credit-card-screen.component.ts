@@ -53,16 +53,15 @@ export class CreditCardScreenComponent {
     //validator reactive form from BS slides
     constructor() {
         this.creditCardForm = this.formBuilder.group({
-            card_number: ['', [Validators.required, Validators.pattern(/^\d{7,16}$/)]], // yea I use cursed REGEX but tha shi works really well
-            cardholder_name: ['', [Validators.required, Validators.minLength(2)]],
-            csc_code: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]], // also here
-            expiry_date_month: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
-            expiry_date_year: ['', [Validators.required]],
+            cardNumber: ['', [Validators.required, Validators.pattern(/^\d{7,16}$/)]], // Changed to camelCase
+            cardholderName: ['', [Validators.required, Validators.minLength(2)]],
+            cscCode: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]], // Changed to camelCase
+            expiryDateMonth: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
+            expiryDateYear: ['', [Validators.required]],
             issuer: ['', Validators.required]
         });
     }
 
-    // one method for all digit inputs, instead of one for each input field 
     onDigitInput(event: Event, fieldName: string, maxLength?: number): void {
         const input = event.target as HTMLInputElement;
         let value = input.value.replace(/\D/g, ''); // Remove non-digit characters regex stuff
@@ -75,7 +74,6 @@ export class CreditCardScreenComponent {
         this.submitted = true;
         if (this.creditCardForm.valid) {
             const newCard = {
-                id: '', // API will generate the ID
                 ...this.creditCardForm.value
             };
             this.creditCardService.addCreditCard(newCard);

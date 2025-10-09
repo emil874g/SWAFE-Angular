@@ -11,22 +11,44 @@ export class AuthService {
 
   private tokenSignal = signal<string | null>(this.getStoredToken());
 
-  isAuthenticated = computed(() => !!this.tokenSignal());
+  isAuthenticated = computed(() => {
+    const token = this.tokenSignal();
+    console.log('AuthService: isAuthenticated computed, token exists:', !!token);
+    return !!token;
+  });
 
-  login(username: string, password: string): Observable<any> {
+  constructor() {
+    const storedToken = this.getStoredToken();
+    console.log('AuthService: Initialized, stored token:', storedToken ? 'present' : 'null');
+  }
+
+  login(username: string, password: string): Observable<string> {
+    console.log('AuthService: Attempting login for', username);
     return this.apiService.login(username, password)
       .pipe(
         tap((response: any) => {
-          if (response.token) {
-            this.setToken(response.token);
+          console.log('AuthService: Login response:', response);
+          let token: string | null = null;
+          if (typeof response === 'string') {
+            token = response;
+          } else if (response && response.token) {
+            token = response.token;
+          }
+          if (token) {
+            console.log('AuthService: Setting token:', token);
+            this.setToken(token);
+          } else {
+            console.log('AuthService: No token found in response');
           }
         })
       );
   }
 
   setToken(token: string): void {
+    console.log('AuthService: Setting token in localStorage:', token);
     localStorage.setItem(this.TOKEN_KEY, token);
     this.tokenSignal.set(token);
+    console.log('AuthService: Token signal updated, isAuthenticated:', this.isAuthenticated());
   }
 
   getToken(): string | null {
@@ -34,7 +56,9 @@ export class AuthService {
   }
 
   private getStoredToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    console.log('AuthService: getStoredToken:', token ? 'present' : 'null');
+    return token;
   }
 
   logout(): void {

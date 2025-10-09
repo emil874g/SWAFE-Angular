@@ -19,13 +19,16 @@ export class LoginComponent {
   error = '';
 
   onSubmit(): void {
+    console.log('LoginComponent: Submitting login for', this.username);
     this.error = '';
     this.authService.login(this.username, this.password)
       .subscribe({
         next: () => {
+          console.log('LoginComponent: Login successful, navigating to /home');
           this.router.navigate(['/home']);
         },
         error: (err) => {
+          console.log('LoginComponent: Login failed', err);
           this.error = 'Invalid username or password';
         }
       });

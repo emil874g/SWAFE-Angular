@@ -2,35 +2,35 @@
     <div class="transactions-overview__container">
         <h2 class="transactions-overview__title">All Transactions</h2>
 
-     
+
         <button class="transactions-overview__add-btn" (click)="addTransaction()">Add Transaction</button>
 
- 
+
         <div class="transactions-overview__filter">
             <label for="cardFilter">Filter by Card Number:</label>
-            <select 
-                id="cardFilter" 
+            <select
+                id="cardFilter"
                 [value]="filterCardNumber()"
                 (change)="onFilterChange($any($event.target).value)"
                 class="transactions-overview__select"
             >
                 <option value="">All Cards</option>
-                @for (card of creditCards(); track card.id) {
-                    <option [value]="card.card_number">{{ card.card_number }} - {{ card.cardholder_name }}</option>
+                @for (card of creditCards(); track $index) {
+                    <option [value]="card.cardNumber">{{ card.cardNumber }} - {{ card.cardholderName }}</option>
                 }
             </select>
         </div>
 
-       
+
         @if (filteredTransactions().length === 0) {
             <p class="transactions-overview__empty">No transactions found.</p>
         } @else {
             <div class="transactions-overview__list">
-                @for (transaction of filteredTransactions(); track transaction.id) {
+                @for (transaction of filteredTransactions(); track transaction.uid) {
                     <div class="transactions-overview__item">
                         <div class="transactions-overview__row">
                             <span class="transactions-overview__label">Credit Card:</span>
-                            <span class="transactions-overview__value">{{ transaction.credit_card }}</span>
+                            <span class="transactions-overview__value">{{ transaction.creditCard }}</span>
                         </div>
                         <div class="transactions-overview__row">
                             <span class="transactions-overview__label">Amount:</span>
@@ -46,7 +46,7 @@
                                 <span class="transactions-overview__comment">{{ transaction.comment }}</span>
                             </div>
                         }
-                        <button class="transactions-overview__delete-btn" (click)="removeTransaction(transaction.id)">
+                        <button class="transactions-overview__delete-btn" (click)="removeTransaction(transaction.uid)">
                             Delete Transaction
                         </button>
                     </div>

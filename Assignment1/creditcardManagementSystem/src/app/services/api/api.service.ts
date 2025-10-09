@@ -51,7 +51,7 @@ export class ApiService {
     return this.http.delete(`${this.BASE_URL}/api/Transaction/${uid}`, this.getHeaders());
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.BASE_URL}/api/Login`, { username, password });
+  login(username: string, password: string): Observable<string> {
+    return this.http.post(`${this.BASE_URL}/api/Login`, { username, password }, { responseType: 'text' });
   }
 }

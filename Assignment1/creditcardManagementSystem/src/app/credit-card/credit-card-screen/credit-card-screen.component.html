@@ -3,119 +3,119 @@
         <h2 class="credit-card-screen__title">Add New Credit Card</h2>
 
         <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()" class="credit-card-screen__form">
-            
-          
+
+
             <div class="credit-card-screen__form-group">
-                <label class="credit-card-screen__label" for="card_number">
+                <label class="credit-card-screen__label" for="cardNumber">
                     Card Number * <span class="credit-card-screen__hint">(7-16 digits)</span>
                 </label>
-                <input 
-                    type="text" 
-                    id="card_number"
-                    formControlName="card_number"
-                    (input)="onDigitInput($event, 'card_number', 16)"
+                <input
+                    type="text"
+                    id="cardNumber"
+                    formControlName="cardNumber"
+                    (input)="onDigitInput($event, 'cardNumber', 16)"
                     class="credit-card-screen__input"
-                    [class.credit-card-screen__input--error]="showError('card_number')"
+                    [class.credit-card-screen__input--error]="showError('cardNumber')"
                     placeholder="1234567890123456"
                     maxlength="16"
                 />
-                @if (showError('card_number')) {
+                @if (showError('cardNumber')) {
                     <span class="credit-card-screen__error">
-                        {{ getError('card_number') }}
+                        {{ getError('cardNumber') }}
                     </span>
                 }
             </div>
 
-         
+
             <div class="credit-card-screen__form-group">
-                <label class="credit-card-screen__label" for="cardholder_name">Cardholder Name *</label>
-                <input 
-                    type="text" 
-                    id="cardholder_name"
-                    formControlName="cardholder_name"
+                <label class="credit-card-screen__label" for="cardholderName">Cardholder Name *</label>
+                <input
+                    type="text"
+                    id="cardholderName"
+                    formControlName="cardholderName"
                     class="credit-card-screen__input"
-                    [class.credit-card-screen__input--error]="showError('cardholder_name')"
+                    [class.credit-card-screen__input--error]="showError('cardholderName')"
                     placeholder="John Doe"
                 />
-                @if (showError('cardholder_name')) {
+                @if (showError('cardholderName')) {
                     <span class="credit-card-screen__error">
-                        {{ getError('cardholder_name') }}
+                        {{ getError('cardholderName') }}
                     </span>
                 }
             </div>
 
-            
+
             <div class="credit-card-screen__form-group">
-                <label class="credit-card-screen__label" for="csc_code">
+                <label class="credit-card-screen__label" for="cscCode">
                     CSC Code * <span class="credit-card-screen__hint">(3 digits)</span>
                 </label>
-                <input 
-                    type="text" 
-                    id="csc_code"
-                    formControlName="csc_code"
-                    (input)="onDigitInput($event, 'csc_code', 3)"
+                <input
+                    type="text"
+                    id="cscCode"
+                    formControlName="cscCode"
+                    (input)="onDigitInput($event, 'cscCode', 3)"
                     class="credit-card-screen__input"
-                    [class.credit-card-screen__input--error]="showError('csc_code')"
+                    [class.credit-card-screen__input--error]="showError('cscCode')"
                     placeholder="123"
                     maxlength="3"
                 />
-                @if (showError('csc_code')) {
+                @if (showError('cscCode')) {
                     <span class="credit-card-screen__error">
-                        {{ getError('csc_code') }}
+                        {{ getError('cscCode') }}
                     </span>
                 }
             </div>
 
-           
+
             <div class="credit-card-screen__form-row">
-                
+
                 <div class="credit-card-screen__form-group">
-                    <label class="credit-card-screen__label" for="expiry_date_month">
+                    <label class="credit-card-screen__label" for="expiryDateMonth">
                         Expiry Month * <span class="credit-card-screen__hint">(1-12)</span>
                     </label>
-                    <input 
-                        type="number" 
-                        id="expiry_date_month"
-                        formControlName="expiry_date_month"
-                        (input)="onDigitInput($event, 'expiry_date_month', 2)"
+                    <input
+                        type="number"
+                        id="expiryDateMonth"
+                        formControlName="expiryDateMonth"
+                        (input)="onDigitInput($event, 'expiryDateMonth', 2)"
                         class="credit-card-screen__input"
-                        [class.credit-card-screen__input--error]="showError('expiry_date_month')"
+                        [class.credit-card-screen__input--error]="showError('expiryDateMonth')"
                         placeholder="12"
                         min="1"
                         max="12"
                     />
-                    @if (showError('expiry_date_month')) {
+                    @if (showError('expiryDateMonth')) {
                         <span class="credit-card-screen__error">
-                            {{ getError('expiry_date_month') }}
+                            {{ getError('expiryDateMonth') }}
                         </span>
                     }
                 </div>
 
-               
+
                 <div class="credit-card-screen__form-group">
-                    <label class="credit-card-screen__label" for="expiry_date_year">Expiry Year *</label>
-                    <input 
-                        type="number" 
-                        id="expiry_date_year"
-                        formControlName="expiry_date_year"
-                        (input)="onDigitInput($event, 'expiry_date_year', 2)"
+                    <label class="credit-card-screen__label" for="expiryDateYear">Expiry Year *</label>
+                    <input
+                        type="number"
+                        id="expiryDateYear"
+                        formControlName="expiryDateYear"
+                        (input)="onDigitInput($event, 'expiryDateYear', 2)"
                         class="credit-card-screen__input"
-                        [class.credit-card-screen__input--error]="showError('expiry_date_year')"
+                        [class.credit-card-screen__input--error]="showError('expiryDateYear')"
                         placeholder="25"
                         min="24"
                     />
-                    @if (showError('expiry_date_year')) {
+                    @if (showError('expiryDateYear')) {
                         <span class="credit-card-screen__error">
-                            {{ getError('expiry_date_year') }}
+                            {{ getError('expiryDateYear') }}
                         </span>
                     }
                 </div>
             </div>
 
-        
+
             <div class="credit-card-screen__form-group">
                 <label class="credit-card-screen__label" for="issuer">Issuer *</label>
-                <select 
+                <select
                     id="issuer"
                     formControlName="issuer"
                     class="credit-card-screen__input"
@@ -133,24 +133,24 @@
                 }
             </div>
 
-          
+
             @if (submitted && creditCardForm.invalid) {
                 <div class="credit-card-screen__form-error">
                     Please fix the errors above before submitting.
                 </div>
             }
 
-            
+
             <div class="credit-card-screen__actions">
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     class="credit-card-screen__button credit-card-screen__button--cancel"
                     (click)="onCancel()"
                 >
                     Cancel
                 </button>
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     class="credit-card-screen__button credit-card-screen__button--submit"
                 >
                     Add Credit Card

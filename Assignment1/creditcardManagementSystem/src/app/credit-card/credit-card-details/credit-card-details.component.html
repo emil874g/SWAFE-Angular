@@ -6,24 +6,24 @@
         <div class="credit-card-details__card">
             <div class="credit-card-details__info-row">
                 <span class="credit-card-details__label">Card Number:</span>
-                <span class="credit-card-details__value">{{ creditCard()!.card_number }}</span>
+                <span class="credit-card-details__value">{{ creditCard()!.cardNumber }}</span>
             </div>
 
             <div class="credit-card-details__info-row">
                 <span class="credit-card-details__label">Cardholder Name:</span>
-                <span class="credit-card-details__value">{{ creditCard()!.cardholder_name }}</span>
+                <span class="credit-card-details__value">{{ creditCard()!.cardholderName }}</span>
             </div>
-            @if (creditCard()!.csc_code) {
+            @if (creditCard()!.cscCode) {
             <div class="credit-card-details__info-row">
                 <span class="credit-card-details__label">CSC:</span>
-                <span class="credit-card-details__value">{{ creditCard()!.csc_code }}</span>
+                <span class="credit-card-details__value">{{ creditCard()!.cscCode }}</span>
             </div>
             }
 
-            @if (creditCard()!.expiry_date_month && creditCard()!.expiry_date_year) {
+            @if (creditCard()!.expiryDateMonth && creditCard()!.expiryDateYear) {
             <div class="credit-card-details__info-row">
                 <span class="credit-card-details__label">Expiry Date:</span>
-                <span class="credit-card-details__value">{{ creditCard()!.expiry_date_month | expiryDate:creditCard()!.expiry_date_year }}</span>
+                <span class="credit-card-details__value">{{ creditCard()!.expiryDateMonth | expiryDate:creditCard()!.expiryDateYear }}</span>
             </div>
             }
 
@@ -50,9 +50,9 @@
         <button class="credit-card-details__back-button" (click)="goBack()">Back to List</button>
     </div>
     }
- 
+
     <!-- F3.4: Transactions list for this card -->
     @if (creditCard()) {
-        <transactions-list [cardNumber]="creditCard()!.card_number"></transactions-list>
+        <transactions-list [cardNumber]="creditCard()!.cardNumber"></transactions-list>
     }
 </div>

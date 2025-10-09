@@ -5,12 +5,12 @@
 
     @if (creditCards().length > 0) {
         <ul class="credit-card-list__items">
-            @for (card of creditCards(); track card.id) {
+            @for (card of creditCards(); track $index) {
                 <li class="credit-card-list__item"
-                    (click)="navigateToDetails(card.id)">
+                    (click)="card.cardNumber && navigateToDetails(card.cardNumber)">
                     <div class="credit-card-list__card-info">
-                        <p class="credit-card-list__card-number"><strong>Card Number:</strong> {{ card.card_number }}</p>
-                        <p class="credit-card-list__cardholder-name"><strong>Cardholder:</strong> {{ card.cardholder_name }}</p>
+                        <p class="credit-card-list__card-number"><strong>Card Number:</strong> {{ card.cardNumber }}</p>
+                        <p class="credit-card-list__cardholder-name"><strong>Cardholder:</strong> {{ card.cardholderName }}</p>
                         <p class="credit-card-list__issuer"><strong>Issuer:</strong> {{ card.issuer }}</p>
                     </div>
                 </li>

@@ -3,19 +3,19 @@
         <h2 class="add-transaction__title">Add New Transaction</h2>
 
         <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="add-transaction__form">
-            
-           
+
+
             <div class="add-transaction__form-group">
                 <label class="add-transaction__label" for="credit_card">Credit Card *</label>
-                <select 
+                <select
                     id="credit_card"
-                    formControlName="credit_card"
+                    formControlName="creditCard"
                     class="add-transaction__input"
-                    [class.add-transaction__input--error]="showError('credit_card')"
+                    [class.add-transaction__input--error]="showError('creditCard')"
                 >
                     <option value="">Select a card</option>
-                    @for (card of creditCards(); track card.id) {
-                        <option [value]="card.card_number">{{ card.card_number }} - {{ card.cardholder_name }}</option>
+                    @for (card of creditCards(); track $index) {
+                        <option [value]="card.cardNumber">{{ card.cardNumber }} - {{ card.cardholderName }}</option>
                     }
                 </select>
                 @if (showError('credit_card')) {
@@ -25,8 +25,8 @@
 
             <div class="add-transaction__form-group">
                 <label class="add-transaction__label" for="amount">Amount *</label>
-                <input 
-                    type="number" 
+                <input
+                    type="number"
                     id="amount"
                     formControlName="amount"
                     class="add-transaction__input"
@@ -42,7 +42,7 @@
 
             <div class="add-transaction__form-group">
                 <label class="add-transaction__label" for="currency">Currency *</label>
-                <select 
+                <select
                     id="currency"
                     formControlName="currency"
                     class="add-transaction__input"
@@ -60,8 +60,8 @@
 
             <div class="add-transaction__form-group">
                 <label class="add-transaction__label" for="date">Date *</label>
-                <input 
-                    type="date" 
+                <input
+                    type="date"
                     id="date"
                     formControlName="date"
                     class="add-transaction__input"
@@ -74,7 +74,7 @@
 
             <div class="add-transaction__form-group">
                 <label class="add-transaction__label" for="comment">Comment</label>
-                <textarea 
+                <textarea
                     id="comment"
                     formControlName="comment"
                     class="add-transaction__input add-transaction__textarea"
@@ -84,12 +84,12 @@
             </div>
 
             <div class="add-transaction__actions">
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     class="add-transaction__button add-transaction__button--cancel"
                     (click)="onCancel()">Cancel </button>
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     class="add-transaction__button add-transaction__button--submit">Add Transaction
                 </button>
             </div>

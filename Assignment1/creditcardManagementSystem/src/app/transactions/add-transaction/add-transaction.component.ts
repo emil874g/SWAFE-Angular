@@ -27,7 +27,7 @@ export class AddTransactionComponent {
     // Reactive forms + validation again, just like in credit card component
     constructor() {
         this.transactionForm = this.formBuilder.group({
-            credit_card: ['', Validators.required], 
+            creditCard: ['', Validators.required],
             amount: ['', [Validators.required, Validators.min(0.01)]],
             currency: ['', Validators.required],
             date: ['', Validators.required],
@@ -39,7 +39,7 @@ export class AddTransactionComponent {
         this.submitted = true;
         if (this.transactionForm.valid) {
             const newTransaction = {
-                id: '', 
+                uid: '',
                 ...this.transactionForm.value
             };
             this.transactionService.addTransaction(newTransaction);

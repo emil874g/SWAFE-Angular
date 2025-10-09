@@ -16,7 +16,7 @@ export class CreditCardListComponent {
     // using signals to auto update the list when a new card is added
     creditCards = this.creditCardService.creditCards;
 
-    navigateToDetails(cardId: string): void {
-        this.router.navigate(['/credit-card', cardId]);
+    navigateToDetails(cardNumber: string): void {
+        this.router.navigate(['/credit-card', cardNumber]);
     }
 }
