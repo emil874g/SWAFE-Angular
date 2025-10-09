@@ -1,1 +1,161 @@
-<p>credit-card-screen works!</p>
+<div class="credit-card-screen">
+    <div class="credit-card-screen__container">
+        <h2 class="credit-card-screen__title">Add New Credit Card</h2>
+
+        <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()" class="credit-card-screen__form">
+            
+            <!-- F4.1: Card Number (7-16 digits, integers only, required) -->
+            <div class="credit-card-screen__form-group">
+                <label class="credit-card-screen__label" for="card_number">
+                    Card Number * <span class="credit-card-screen__hint">(7-16 digits)</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="card_number"
+                    formControlName="card_number"
+                    (input)="onCardNumberInput($event)"
+                    class="credit-card-screen__input"
+                    [class.credit-card-screen__input--error]="hasError('card_number')"
+                    placeholder="1234567890123456"
+                    maxlength="16"
+                />
+                @if (hasError('card_number')) {
+                    <span class="credit-card-screen__error">
+                        {{ getErrorMessage('card_number') }}
+                    </span>
+                }
+            </div>
+
+            <!-- F4.3: Cardholder Name (required) -->
+            <div class="credit-card-screen__form-group">
+                <label class="credit-card-screen__label" for="cardholder_name">Cardholder Name *</label>
+                <input 
+                    type="text" 
+                    id="cardholder_name"
+                    formControlName="cardholder_name"
+                    class="credit-card-screen__input"
+                    [class.credit-card-screen__input--error]="hasError('cardholder_name')"
+                    placeholder="John Doe"
+                />
+                @if (hasError('cardholder_name')) {
+                    <span class="credit-card-screen__error">
+                        {{ getErrorMessage('cardholder_name') }}
+                    </span>
+                }
+            </div>
+
+            <!-- F4.2: CSC Code (3 digits, integers only, required) -->
+            <div class="credit-card-screen__form-group">
+                <label class="credit-card-screen__label" for="csc_code">
+                    CSC Code * <span class="credit-card-screen__hint">(3 digits)</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="csc_code"
+                    formControlName="csc_code"
+                    (input)="onCscInput($event)"
+                    class="credit-card-screen__input"
+                    [class.credit-card-screen__input--error]="hasError('csc_code')"
+                    placeholder="123"
+                    maxlength="3"
+                />
+                @if (hasError('csc_code')) {
+                    <span class="credit-card-screen__error">
+                        {{ getErrorMessage('csc_code') }}
+                    </span>
+                }
+            </div>
+
+            <!-- F4.4 & F4.5: Expiry Date -->
+            <div class="credit-card-screen__form-row">
+                <!-- F4.4: Expiry Month (1-12, required) -->
+                <div class="credit-card-screen__form-group">
+                    <label class="credit-card-screen__label" for="expiry_date_month">
+                        Expiry Month * <span class="credit-card-screen__hint">(1-12)</span>
+                    </label>
+                    <input 
+                        type="number" 
+                        id="expiry_date_month"
+                        formControlName="expiry_date_month"
+                        (input)="onMonthInput($event)"
+                        class="credit-card-screen__input"
+                        [class.credit-card-screen__input--error]="hasError('expiry_date_month')"
+                        placeholder="12"
+                        min="1"
+                        max="12"
+                    />
+                    @if (hasError('expiry_date_month')) {
+                        <span class="credit-card-screen__error">
+                            {{ getErrorMessage('expiry_date_month') }}
+                        </span>
+                    }
+                </div>
+
+                <!-- F4.5: Expiry Year (required) -->
+                <div class="credit-card-screen__form-group">
+                    <label class="credit-card-screen__label" for="expiry_date_year">Expiry Year *</label>
+                    <input 
+                        type="number" 
+                        id="expiry_date_year"
+                        formControlName="expiry_date_year"
+                        (input)="onYearInput($event)"
+                        class="credit-card-screen__input"
+                        [class.credit-card-screen__input--error]="hasError('expiry_date_year')"
+                        placeholder="25"
+                        min="24"
+                    />
+                    @if (hasError('expiry_date_year')) {
+                        <span class="credit-card-screen__error">
+                            {{ getErrorMessage('expiry_date_year') }}
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <!-- Issuer -->
+            <div class="credit-card-screen__form-group">
+                <label class="credit-card-screen__label" for="issuer">Issuer *</label>
+                <select 
+                    id="issuer"
+                    formControlName="issuer"
+                    class="credit-card-screen__input"
+                    [class.credit-card-screen__input--error]="hasError('issuer')"
+                >
+                    <option value="">Select an issuer</option>
+                    @for (issuer of issuers; track issuer) {
+                        <option [value]="issuer">{{ issuer }}</option>
+                    }
+                </select>
+                @if (hasError('issuer')) {
+                    <span class="credit-card-screen__error">
+                        {{ getErrorMessage('issuer') }}
+                    </span>
+                }
+            </div>
+
+            <!-- Form Status -->
+            @if (submitted && creditCardForm.invalid) {
+                <div class="credit-card-screen__form-error">
+                    Please fix the errors above before submitting.
+                </div>
+            }
+
+            <!-- Buttons -->
+            <div class="credit-card-screen__actions">
+                <button 
+                    type="button" 
+                    class="credit-card-screen__button credit-card-screen__button--cancel"
+                    (click)="onCancel()"
+                >
+                    Cancel
+                </button>
+                <button 
+                    type="submit" 
+                    class="credit-card-screen__button credit-card-screen__button--submit"
+                >
+                    Add Credit Card
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

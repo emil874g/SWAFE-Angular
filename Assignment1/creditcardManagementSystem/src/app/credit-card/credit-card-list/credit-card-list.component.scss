@@ -73,4 +73,26 @@
         font-size: 0.95rem;
         color: #7f8c8d;
     }
+
+    // Element: empty state
+    &__empty {
+        text-align: center;
+        padding: 3rem 2rem;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        border: 2px dashed #ddd;
+        max-width: 600px;
+        margin: 2rem auto;
+
+        p {
+            color: #666;
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+
+            &:first-child {
+                font-weight: 600;
+                color: #555;
+            }
+        }
+    }
 }

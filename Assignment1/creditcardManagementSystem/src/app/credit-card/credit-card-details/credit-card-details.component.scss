@@ -78,6 +78,27 @@
         }
     }
 
+    &__delete-button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: block;
+        margin: 1rem auto 0 auto;
+
+        &:hover {
+            background-color: #c0392b;
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+
     // Element: error
     &__error {
         background-color: white;
