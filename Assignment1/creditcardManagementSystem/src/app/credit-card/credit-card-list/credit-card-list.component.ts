@@ -12,10 +12,9 @@ import { CreditCardService } from '../../services/credit-card-service/credit-car
 export class CreditCardListComponent {
     private router = inject(Router);
     private creditCardService = inject(CreditCardService);
-    
+
     // using signals to auto update the list when a new card is added
     creditCards = this.creditCardService.creditCards;
-    cardCount = this.creditCardService.cardCount; // Do I care about the count? I dont display the count anywhere
 
     navigateToDetails(cardId: string): void {
         this.router.navigate(['/credit-card', cardId]);

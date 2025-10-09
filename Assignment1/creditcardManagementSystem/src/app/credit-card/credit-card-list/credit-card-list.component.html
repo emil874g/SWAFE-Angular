@@ -1,19 +1,12 @@
 <div class="credit-card-list">
     <div class="credit-card-list__header">
         <h2 class="credit-card-list__title">Credit Card List</h2>
-        <div class="credit-card-list__description">
-            @if (cardCount() > 0) {
-                <p> {{ cardCount() }} credit card(s) is available.</p>
-            } @else {
-                <p>No credit cards yet. Add your first card to teh list here!</p>
-            }
         </div>
-    </div>
 
     @if (creditCards().length > 0) {
         <ul class="credit-card-list__items">
             @for (card of creditCards(); track card.id) {
-                <li class="credit-card-list__item" 
+                <li class="credit-card-list__item"
                     (click)="navigateToDetails(card.id)">
                     <div class="credit-card-list__card-info">
                         <p class="credit-card-list__card-number"><strong>Card Number:</strong> {{ card.card_number }}</p>

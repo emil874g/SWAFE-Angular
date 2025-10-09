@@ -1,12 +1,12 @@
 import { Component, OnInit, inject, computed } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { CreditCardService } from '../../services/credit-card-service/credit-card-service.service';
 
 @Component({
     selector: 'app-credit-card-details',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './credit-card-details.component.html',
     styleUrl: './credit-card-details.component.scss'
 })

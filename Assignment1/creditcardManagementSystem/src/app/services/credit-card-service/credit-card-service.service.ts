@@ -14,22 +14,17 @@ export interface CreditCard {
   providedIn: 'root'
 })
 export class CreditCardService {
-  
+
   private creditCardsSignal = signal<CreditCard[]>([]);
-  
+
   creditCards = computed(() => this.creditCardsSignal());
-  
-  cardCount = computed(() => this.creditCardsSignal().length);
-  
-  hasCards = computed(() => this.creditCardsSignal().length > 0);
 
   addCreditCard(card: CreditCard): void {
-    // I dont actually understand what signals do yet
     this.creditCardsSignal.update(cards => [...cards, card]);
   }
 
   removeCreditCard(id: string): void {
-    this.creditCardsSignal.update(cards => 
+    this.creditCardsSignal.update(cards =>
       cards.filter(card => card.id !== id)
     );
   }
@@ -38,21 +33,7 @@ export class CreditCardService {
     return this.creditCardsSignal().find(card => card.id === id);
   }
 
-  generateCardId(): string {
+  generateCardId(): string { // is this necessaryy?= idk yet, but I'll find out
     return `card_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
-
-  // Optional: Method to clear all cards
-  // clearAllCards(): void {
-  //   this.creditCardsSignal.set([]);
-  // }
-
-  // Optional: Method to update an existing card
-  // updateCreditCard(id: string, updatedCard: Partial<CreditCard>): void {
-  //   this.creditCardsSignal.update(cards =>
-  //     cards.map(card => 
-  //       card.id === id ? { ...card, ...updatedCard } : card
-  //     )
-  //   );
-  // }
 }
