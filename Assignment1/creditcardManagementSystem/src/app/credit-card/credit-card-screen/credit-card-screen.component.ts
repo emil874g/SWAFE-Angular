@@ -53,9 +53,9 @@ export class CreditCardScreenComponent {
     //validator reactive form from BS slides
     constructor() {
         this.creditCardForm = this.formBuilder.group({
-            cardNumber: ['', [Validators.required, Validators.pattern(/^\d{7,16}$/)]], // Changed to camelCase
+            cardNumber: ['', [Validators.required, Validators.pattern(/^\d{7,16}$/)]], // regex lmao for 7-16 digits I know its cursed but it does work very well tbh
             cardholderName: ['', [Validators.required, Validators.minLength(2)]],
-            cscCode: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]], // Changed to camelCase
+            cscCode: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]], // same here
             expiryDateMonth: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
             expiryDateYear: ['', [Validators.required]],
             issuer: ['', Validators.required]
