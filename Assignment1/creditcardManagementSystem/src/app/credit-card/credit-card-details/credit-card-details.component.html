@@ -1,1 +1,49 @@
-<p>credit-card-details works!</p>
+<div class="credit-card-details">
+    @if (creditCard) {
+        <div class="credit-card-details__container">
+            <h2 class="credit-card-details__title">Credit Card Details</h2>
+            
+            <div class="credit-card-details__card">
+                <div class="credit-card-details__info-row">
+                    <span class="credit-card-details__label">Card Number:</span>
+                    <span class="credit-card-details__value">{{ creditCard.card_number }}</span>
+                </div>
+                
+                <div class="credit-card-details__info-row">
+                    <span class="credit-card-details__label">Cardholder Name:</span>
+                    <span class="credit-card-details__value">{{ creditCard.cardholder_name }}</span>
+                </div>
+                 @if (creditCard.csc_code) {
+                    <div class="credit-card-details__info-row">
+                        <span class="credit-card-details__label">CSC:</span>
+                        <span class="credit-card-details__value">{{ creditCard.csc_code }}</span>
+                    </div>
+                }
+
+                @if (creditCard.expiry_date_month && creditCard.expiry_date_year) {
+                    <div class="credit-card-details__info-row">
+                        <span class="credit-card-details__label">Expiry Date:</span>
+                        <span class="credit-card-details__value">{{ creditCard.expiry_date_month }}/{{ creditCard.expiry_date_year }}</span>
+                    </div>
+                }
+            
+                <div class="credit-card-details__info-row">
+                    <span class="credit-card-details__label">Issuer:</span>
+                    <span class="credit-card-details__value">{{ creditCard.issuer }}</span>
+                </div>
+            </div>
+            
+            <button class="credit-card-details__back-button" (click)="goBack()">
+                ← Back to List
+            </button>
+        </div>
+    }
+    @else 
+    {
+        <div class="credit-card-details__error">
+            <h2>Credit Card Not Found</h2>
+            <p>The credit card you're looking for doesn't exist.</p>
+            <button class="credit-card-details__back-button" (click)="goBack()">Back to List</button>
+        </div>
+    }
+</div>

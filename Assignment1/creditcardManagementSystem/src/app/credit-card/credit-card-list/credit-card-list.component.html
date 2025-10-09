@@ -1,1 +1,21 @@
-<p>credit-card-list works!</p>
+<div class="credit-card-list">
+    <div class="credit-card-list__header">
+        <h2 class="credit-card-list__title">Credit Card List</h2>
+        <div class="credit-card-list__description">
+            <p>Here is a list of credit cards:</p>
+        </div>
+    </div>
+
+    <ul class="credit-card-list__items">
+        @for (card of creditCards; track card.id) {
+            <li class="credit-card-list__item" 
+                (click)="navigateToDetails(card.id)">
+                <div class="credit-card-list__card-info">
+                    <p class="credit-card-list__card-number"><strong>Card Number:</strong> {{ card.card_number }}</p>
+                    <p class="credit-card-list__cardholder-name"><strong>Cardholder:</strong> {{ card.cardholder_name }}</p>
+                    <p class="credit-card-list__issuer"><strong>Issuer:</strong> {{ card.issuer }}</p>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

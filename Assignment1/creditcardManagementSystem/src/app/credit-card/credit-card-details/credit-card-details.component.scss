@@ -1,0 +1,99 @@
+// Block: credit-card-details
+.credit-card-details {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // Element: container
+    &__container {
+        max-width: 600px;
+        width: 100%;
+    }
+
+    // Element: title
+    &__title {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    // Element: card
+    &__card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    // Element: info-row
+    &__info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    // Element: label
+    &__label {
+        font-weight: bold;
+        color: #555;
+        font-size: 1rem;
+    }
+
+    // Element: value
+    &__value {
+        color: #333;
+        font-size: 1rem;
+        font-family: 'Courier New', monospace;
+    }
+
+    // Element: back-button
+    &__back-button {
+        background-color: #58a0e8;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: block;
+        margin: 0 auto;
+
+        &:hover {
+            background-color: #3498db;
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+
+    // Element: error
+    &__error {
+        background-color: white;
+        border-radius: 12px;
+        padding: 3rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+
+        h2 {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+    }
+}

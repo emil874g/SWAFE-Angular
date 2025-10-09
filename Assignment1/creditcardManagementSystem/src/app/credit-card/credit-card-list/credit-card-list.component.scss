@@ -1,0 +1,76 @@
+// Har brugt BEM methology til scss (Block Element Modifier), 
+// becuase I like this more than normal scss, it tends to gets messy
+// Block: credit-card-list
+.credit-card-list {
+    padding: 2rem;
+
+    // Element: header
+    &__header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    // Element: title
+    &__title {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    // Element: description
+    &__description {
+        color: #666;
+    }
+
+    // Element: items
+    &__items {
+        list-style: none;
+        padding: 0;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    // Element: item
+    &__item {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        // Modifier: hover state
+        &:hover {
+            background-color: #e8e8e8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+    }
+
+    // Element: card-info
+    &__card-info {
+        p {
+            margin: 0.5rem 0;
+        }
+    }
+
+    // Element: card-number
+    &__card-number {
+        font-family: 'Courier New', monospace;
+        font-size: 1.1rem;
+        color: #2c3e50;
+    }
+
+    // Element: cardholder-name
+    &__cardholder-name {
+        font-size: 1rem;
+        color: #34495e;
+    }
+
+    // Element: issuer
+    &__issuer {
+        font-size: 0.95rem;
+        color: #7f8c8d;
+    }
+}
