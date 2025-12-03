@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import apiService from "@/services/api";
 import { CreateWorkoutDto, UpdateWorkoutDto, User } from "@/types";
-import { LoadingSpinner, ErrorMessage } from "@/components/ui";
+import { ErrorMessage } from "@/components/ui";
 
 interface ProgramFormProps {
   id?: number;
@@ -74,7 +74,7 @@ export default function ProgramForm({
     }
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return null;
 
   return (
     <>

@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import { LoadingSpinner } from "@/components/ui";
+
 import { ProgramList, ProgramDetail, ProgramForm } from "@/components/programs";
 
 type ViewMode = "list" | "view" | "create" | "edit";
@@ -63,7 +63,7 @@ function ProgramsContent() {
 
 export default function ProgramsPage() {
   return (
-    <Suspense fallback={<LoadingSpinner />}>
+    <Suspense fallback={null}>
       <ProgramsContent />
     </Suspense>
   );

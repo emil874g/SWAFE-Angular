@@ -3,7 +3,6 @@
 import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import { LoadingSpinner } from "@/components/ui";
 import { ExerciseList, ExerciseForm } from "@/components/exercises";
 
 type ViewMode = "list" | "create" | "edit";
@@ -53,7 +52,7 @@ function ExercisesContent() {
 
 export default function ExercisesPage() {
   return (
-    <Suspense fallback={<LoadingSpinner />}>
+    <Suspense fallback={null}>
       <ExercisesContent />
     </Suspense>
   );

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import apiService from "@/services/api";
 import { WorkoutProgram, CreateExerciseDto } from "@/types";
-import { LoadingSpinner, ErrorMessage } from "@/components/ui";
+import { ErrorMessage } from "@/components/ui";
 
 interface ProgramDetailProps {
   id: number;
@@ -77,7 +77,7 @@ export default function ProgramDetail({
     }
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return null;
   if (error || !program)
     return (
       <ErrorMessage message={error || "Program not found"} onBack={onBack} />

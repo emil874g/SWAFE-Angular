@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import apiService from "@/services/api";
 import { Exercise } from "@/types";
-import { LoadingSpinner, ErrorMessage, EmptyState } from "@/components/ui";
+import { ErrorMessage, EmptyState } from "@/components/ui";
 
 type FilterType = "all" | "assigned" | "unassigned";
 
@@ -47,7 +47,7 @@ export default function ExerciseList({
     return true;
   });
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return null;
 
   return (
     <>

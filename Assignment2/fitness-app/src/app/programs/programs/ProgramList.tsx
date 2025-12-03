@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import apiService from "@/services/api";
 import { WorkoutProgram } from "@/types";
-import { LoadingSpinner, ErrorMessage, EmptyState } from "@/components/ui";
+import { ErrorMessage, EmptyState } from "@/components/ui";
 
 interface ProgramListProps {
   isTrainer: boolean;
@@ -38,7 +38,7 @@ export default function ProgramList({
     }
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return null;
 
   return (
     <>

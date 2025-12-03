@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import apiService from "@/services/api";
 import { CreateExerciseDto, UpdateExerciseDto } from "@/types";
-import { LoadingSpinner, ErrorMessage } from "@/components/ui";
+import { ErrorMessage } from "@/components/ui";
 
 interface ExerciseFormProps {
   id?: number;
@@ -70,7 +70,7 @@ export default function ExerciseForm({
     }
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return null;
 
   return (
     <>
