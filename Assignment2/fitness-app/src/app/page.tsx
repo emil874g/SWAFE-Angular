@@ -9,12 +9,12 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoading) {
-      if (isAuthenticated) {
-        router.replace("/dashboard");
-      } else {
-        router.replace("/login");
-      }
+    if (isLoading) return;
+
+    if (isAuthenticated) {
+      router.replace("/dashboard");
+    } else {
+      router.replace("/login");
     }
   }, [isAuthenticated, isLoading, router]);
 

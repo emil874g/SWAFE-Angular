@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
@@ -9,16 +9,19 @@ const navItems = [
   { href: "/programs", label: "Workout Programs" },
   { href: "/exercises", label: "Exercises" },
   { href: "/clients", label: "Clients", trainerOnly: true },
+  { href: "/trainers", label: "Trainers", managerOnly: true },
 ];
 
 export default function Navigation() {
   const pathname = usePathname();
+  const router = useRouter();
   const { user, logout, isAuthenticated } = useAuth();
 
   if (!isAuthenticated) return null;
 
   const isTrainer =
     user?.accountType === "PersonalTrainer" || user?.accountType === "Manager";
+  const isManager = user?.accountType === "Manager";
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200">
@@ -32,7 +35,11 @@ export default function Navigation() {
             </div>
             <div className="ml-8 flex space-x-4">
               {navItems
-                .filter((item) => !item.trainerOnly || isTrainer)
+                .filter(
+                  (item) =>
+                    (!item.trainerOnly || isTrainer) &&
+                    (!item.managerOnly || isManager)
+                )
                 .map((item) => (
                   <Link
                     key={item.href}
@@ -60,7 +67,10 @@ export default function Navigation() {
               </span>
             </div>
             <button
-              onClick={logout}
+              onClick={() => {
+                logout();
+                router.replace("/login");
+              }}
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
             >
               Logout

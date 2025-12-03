@@ -4,7 +4,9 @@ import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 
-import { ProgramList, ProgramDetail, ProgramForm } from "@/components/programs";
+import ProgramList from "./programs-components/ProgramList";
+import ProgramDetail from "./programs-components/ProgramDetail";
+import ProgramForm from "./programs-components/ProgramForm";
 
 type ViewMode = "list" | "view" | "create" | "edit";
 
@@ -30,6 +32,7 @@ function ProgramsContent() {
       {mode === "list" && (
         <ProgramList
           isTrainer={isTrainer}
+          user={user}
           onView={goToView}
           onCreate={goToCreate}
         />

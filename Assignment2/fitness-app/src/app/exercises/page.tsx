@@ -3,7 +3,8 @@
 import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import { ExerciseList, ExerciseForm } from "@/components/exercises";
+import ExerciseList from "./exercises-components/ExerciseList";
+import ExerciseForm from "./exercises-components/ExerciseForm";
 
 type ViewMode = "list" | "create" | "edit";
 

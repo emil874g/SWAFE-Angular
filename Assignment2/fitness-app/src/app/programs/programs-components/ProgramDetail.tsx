@@ -127,7 +127,7 @@ export default function ProgramDetail({
             )}
           </div>
 
-          {showAddExercise && (
+          {isTrainer && showAddExercise && (
             <form
               onSubmit={handleAddExercise}
               className="bg-gray-50 p-4 rounded-lg mb-4 space-y-3"

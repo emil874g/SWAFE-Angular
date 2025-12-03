@@ -2,17 +2,19 @@
 
 import { useState, useEffect } from "react";
 import apiService from "@/services/api";
-import { WorkoutProgram } from "@/types";
+import { WorkoutProgram, User } from "@/types";
 import { ErrorMessage, EmptyState } from "@/components/ui";
 
 interface ProgramListProps {
   isTrainer: boolean;
+  user: User | null;
   onView: (id: number) => void;
   onCreate: () => void;
 }
 
 export default function ProgramList({
   isTrainer,
+  user,
   onView,
   onCreate,
 }: ProgramListProps) {
@@ -21,33 +23,57 @@ export default function ProgramList({
   const [error, setError] = useState("");
 
   useEffect(() => {
-    apiService
-      .getWorkoutPrograms()
-      .then(setPrograms)
-      .catch(() => setError("Failed to load programs"))
-      .finally(() => setIsLoading(false));
-  }, []);
+    const loadPrograms = async () => {
+      try {
+        let data: WorkoutProgram[];
+
+        if (isTrainer) {
+          // personal trainer or manager → their programs
+          data = await apiService.getTrainerPrograms();
+        } else if (user?.accountType === "Client") {
+          // client → only their programs
+          data = await apiService.getClientPrograms(user.userId);
+        } else {
+          // fallback (should rarely be needed)
+          data = await apiService.getWorkoutPrograms();
+        }
+
+        setPrograms(data);
+      } catch {
+        setError("Failed to load programs");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadPrograms();
+  }, [isTrainer, user]);
 
   const handleDelete = async (id: number) => {
+    if (!isTrainer) return; // extra safety
     if (!confirm("Are you sure you want to delete this program?")) return;
+
     try {
       await apiService.deleteWorkoutProgram(id);
-      setPrograms(programs.filter((p) => p.workoutProgramId !== id));
+      setPrograms((prev) => prev.filter((p) => p.workoutProgramId !== id));
     } catch {
       alert("Failed to delete program");
     }
   };
 
-  if (isLoading) return null;
+  if (isLoading) return <LoadingSpinner />;
+
+  const title = isTrainer ? "Workout Programs" : "My Programs";
+  const subtitle = isTrainer
+    ? "Manage your workout programs and exercises"
+    : "View your assigned workout programs";
 
   return (
     <>
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Workout Programs</h1>
-          <p className="mt-2 text-gray-600">
-            Manage your workout programs and exercises
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
+          <p className="mt-2 text-gray-600">{subtitle}</p>
         </div>
         {isTrainer && (
           <button
@@ -65,7 +91,11 @@ export default function ProgramList({
         <EmptyState
           icon=""
           title="No programs yet"
-          message="Get started by creating your first workout program"
+          message={
+            isTrainer
+              ? "Get started by creating your first workout program"
+              : "You don't have any workout programs yet"
+          }
         >
           {isTrainer && (
             <button
@@ -117,4 +147,3 @@ export default function ProgramList({
     </>
   );
 }
-export { default as ProgramList } from "./ProgramList";

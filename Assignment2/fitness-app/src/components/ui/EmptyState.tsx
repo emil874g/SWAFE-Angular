@@ -20,4 +20,3 @@ export default function EmptyState({
     </div>
   );
 }
-export { default as EmptyState } from "./EmptyState";

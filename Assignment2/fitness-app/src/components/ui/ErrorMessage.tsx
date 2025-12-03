@@ -17,4 +17,3 @@ export default function ErrorMessage({ message, onBack }: ErrorMessageProps) {
     </div>
   );
 }
-export { default as ErrorMessage } from "./ErrorMessage";
