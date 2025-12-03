@@ -56,23 +56,6 @@ class ApiService {
     return this.handleResponse<TokenDto>(response);
   }
 
-  async changePassword(passwordDto: NewPasswordDto): Promise<void> {
-    const response = await fetch(`${API_BASE_URL}/Users/Password`, {
-      method: 'PUT',
-      headers: this.getHeaders(),
-      body: JSON.stringify(passwordDto),
-    });
-    await this.handleResponse<void>(response);
-  }
-
-  // User endpoints
-  async getUsers(): Promise<User[]> {
-    const response = await fetch(`${API_BASE_URL}/Users`, {
-      headers: this.getHeaders(),
-    });
-    return this.handleResponse<User[]>(response);
-  }
-
   async getUser(id: number): Promise<User> {
     const response = await fetch(`${API_BASE_URL}/Users/${id}`, {
       headers: this.getHeaders(),
@@ -87,23 +70,6 @@ class ApiService {
       body: JSON.stringify(user),
     });
     return this.handleResponse<User>(response);
-  }
-
-  async updateUser(id: number, user: Partial<User>): Promise<void> {
-    const response = await fetch(`${API_BASE_URL}/Users/${id}`, {
-      method: 'PUT',
-      headers: this.getHeaders(),
-      body: JSON.stringify(user),
-    });
-    await this.handleResponse<void>(response);
-  }
-
-  async deleteUser(id: number): Promise<void> {
-    const response = await fetch(`${API_BASE_URL}/Users/${id}`, {
-      method: 'DELETE',
-      headers: this.getHeaders(),
-    });
-    await this.handleResponse<void>(response);
   }
 
   async getClients(): Promise<User[]> {
@@ -133,13 +99,6 @@ class ApiService {
       headers: this.getHeaders(),
     });
     return this.handleResponse<Exercise>(response);
-  }
-
-  async getUnassignedExercises(): Promise<Exercise[]> {
-    const response = await fetch(`${API_BASE_URL}/Exercises/unassigned`, {
-      headers: this.getHeaders(),
-    });
-    return this.handleResponse<Exercise[]>(response);
   }
 
   async createExercise(exercise: CreateExerciseDto): Promise<Exercise> {
@@ -176,7 +135,6 @@ class ApiService {
     });
     await this.handleResponse<void>(response);
   }
-
   // Workout Program endpoints
   async getWorkoutPrograms(): Promise<WorkoutProgram[]> {
     const response = await fetch(`${API_BASE_URL}/WorkoutPrograms`, {
