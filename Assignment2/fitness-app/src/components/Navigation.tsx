@@ -21,7 +21,10 @@ export default function Navigation() {
   const router = useRouter();
   const { user, logout, isAuthenticated } = useAuth();
 
-  if (!isAuthenticated) return null;
+  // Hide navigation on auth pages
+  const isAuthPage = pathname === "/login" || pathname === "/";
+
+  if (!isAuthenticated || isAuthPage) return null;
 
   const isPersonalTrainer = user?.accountType === "PersonalTrainer";
   const isManager = user?.accountType === "Manager";
