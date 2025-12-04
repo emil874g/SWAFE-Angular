@@ -8,6 +8,7 @@ import { ErrorMessage } from "@/components/ui";
 interface ProgramDetailProps {
   id: number;
   isTrainer: boolean;
+  user: any;
   onBack: () => void;
   onEdit: (id: number) => void;
 }
@@ -15,6 +16,7 @@ interface ProgramDetailProps {
 export default function ProgramDetail({
   id,
   isTrainer,
+  user,
   onBack,
   onEdit,
 }: ProgramDetailProps) {
@@ -29,6 +31,8 @@ export default function ProgramDetail({
     repetitions: 10,
     time: "",
   });
+
+  const isPersonalTrainer = user?.accountType === "PersonalTrainer";
 
   useEffect(() => {
     apiService
@@ -58,13 +62,16 @@ export default function ProgramDetail({
         repetitions: 10,
         time: "",
       });
-    } catch {
-      alert("Failed to add exercise");
+    } catch (err) {
+      console.error("Failed to add exercise:", err);
+      alert("Failed to add exercise. Please try again.");
     }
   };
 
   const handleDeleteExercise = async (exerciseId: number) => {
-    if (!confirm("Remove this exercise?") || !program) return;
+    if (!program || !isPersonalTrainer) return;
+    if (!confirm("Are you sure you want to remove this exercise?")) return;
+
     try {
       await apiService.deleteExercise(exerciseId);
       setProgram({
@@ -72,8 +79,9 @@ export default function ProgramDetail({
         exercises:
           program.exercises?.filter((e) => e.exerciseId !== exerciseId) || [],
       });
-    } catch {
-      alert("Failed to remove exercise");
+    } catch (err) {
+      console.error("Failed to delete exercise:", err);
+      alert("Failed to remove exercise. Please try again.");
     }
   };
 
@@ -102,7 +110,7 @@ export default function ProgramDetail({
               {program.description || "No description"}
             </p>
           </div>
-          {isTrainer && (
+          {isPersonalTrainer && (
             <button
               onClick={() => onEdit(program.workoutProgramId)}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
@@ -117,7 +125,7 @@ export default function ProgramDetail({
             <h2 className="text-lg font-semibold text-gray-900">
               Exercises ({program.exercises?.length || 0})
             </h2>
-            {isTrainer && (
+            {isPersonalTrainer && (
               <button
                 onClick={() => setShowAddExercise(!showAddExercise)}
                 className="text-blue-600 hover:underline text-sm"
@@ -127,20 +135,32 @@ export default function ProgramDetail({
             )}
           </div>
 
-          {isTrainer && showAddExercise && (
+          {isPersonalTrainer && showAddExercise && (
             <form
               onSubmit={handleAddExercise}
               className="bg-gray-50 p-4 rounded-lg mb-4 space-y-3"
             >
               <input
                 type="text"
-                placeholder="Exercise name"
+                placeholder="Exercise name *"
                 value={newExercise.name || ""}
                 onChange={(e) =>
                   setNewExercise({ ...newExercise, name: e.target.value })
                 }
                 className="w-full px-3 py-2 border rounded-lg text-gray-900"
                 required
+              />
+              <textarea
+                placeholder="Description (optional)"
+                value={newExercise.description || ""}
+                onChange={(e) =>
+                  setNewExercise({
+                    ...newExercise,
+                    description: e.target.value,
+                  })
+                }
+                className="w-full px-3 py-2 border rounded-lg text-gray-900"
+                rows={2}
               />
               <div className="grid grid-cols-3 gap-2">
                 <input
@@ -195,17 +215,22 @@ export default function ProgramDetail({
               {program.exercises?.map((exercise, index) => (
                 <div
                   key={exercise.exerciseId}
-                  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                  className="flex items-start justify-between p-4 bg-gray-50 rounded-lg"
                 >
-                  <div className="flex items-center gap-4">
-                    <span className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
+                  <div className="flex items-start gap-4 flex-1">
+                    <span className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold shrink-0 mt-1">
                       {index + 1}
                     </span>
-                    <div>
+                    <div className="flex-1">
                       <h3 className="font-medium text-gray-900">
                         {exercise.name || "Unnamed"}
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      {exercise.description && (
+                        <p className="text-sm text-gray-500 mt-1">
+                          {exercise.description}
+                        </p>
+                      )}
+                      <p className="text-sm text-gray-600 mt-1">
                         {exercise.sets && `${exercise.sets} sets`}{" "}
                         {exercise.repetitions &&
                           `× ${exercise.repetitions} reps`}{" "}
@@ -213,10 +238,13 @@ export default function ProgramDetail({
                       </p>
                     </div>
                   </div>
-                  {isTrainer && (
+                  {isPersonalTrainer && (
                     <button
-                      onClick={() => handleDeleteExercise(exercise.exerciseId)}
-                      className="text-red-600 hover:underline text-sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteExercise(exercise.exerciseId);
+                      }}
+                      className="text-red-600 hover:bg-red-50 px-3 py-1 rounded text-sm ml-4"
                     >
                       Remove
                     </button>
@@ -230,4 +258,3 @@ export default function ProgramDetail({
     </>
   );
 }
-export { default as ProgramDetail } from "./ProgramDetail";

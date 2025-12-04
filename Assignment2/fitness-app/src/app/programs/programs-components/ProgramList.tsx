@@ -8,6 +8,7 @@ import { ErrorMessage, EmptyState } from "@/components/ui";
 interface ProgramListProps {
   isTrainer: boolean;
   user: User | null;
+  clientId?: number;
   onView: (id: number) => void;
   onCreate: () => void;
 }
@@ -15,6 +16,7 @@ interface ProgramListProps {
 export default function ProgramList({
   isTrainer,
   user,
+  clientId,
   onView,
   onCreate,
 }: ProgramListProps) {
@@ -22,19 +24,22 @@ export default function ProgramList({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Only Personal Trainers can create/delete, not Managers
+  const isPersonalTrainer = user?.accountType === "PersonalTrainer";
+
   useEffect(() => {
     const loadPrograms = async () => {
       try {
         let data: WorkoutProgram[];
 
-        if (isTrainer) {
-          // personal trainer or manager → their programs
+        if (clientId) {
+          data = await apiService.getClientPrograms(clientId);
+        } else if (isTrainer) {
           data = await apiService.getTrainerPrograms();
         } else if (user?.accountType === "Client") {
-          // client → only their programs
           data = await apiService.getClientPrograms(user.userId);
+          data = data.filter((p) => p.clientId === user.userId);
         } else {
-          // fallback (should rarely be needed)
           data = await apiService.getWorkoutPrograms();
         }
 
@@ -47,10 +52,10 @@ export default function ProgramList({
     };
 
     loadPrograms();
-  }, [isTrainer, user]);
+  }, [isTrainer, user, clientId]);
 
   const handleDelete = async (id: number) => {
-    if (!isTrainer) return; // extra safety
+    if (!isPersonalTrainer) return;
     if (!confirm("Are you sure you want to delete this program?")) return;
 
     try {
@@ -61,10 +66,17 @@ export default function ProgramList({
     }
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return null;
 
-  const title = isTrainer ? "Workout Programs" : "My Programs";
-  const subtitle = isTrainer
+  const title = clientId
+    ? "Client's Programs"
+    : isTrainer
+    ? "Workout Programs"
+    : "My Programs";
+
+  const subtitle = clientId
+    ? "Programs assigned to this client"
+    : isTrainer
     ? "Manage your workout programs and exercises"
     : "View your assigned workout programs";
 
@@ -75,7 +87,7 @@ export default function ProgramList({
           <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
           <p className="mt-2 text-gray-600">{subtitle}</p>
         </div>
-        {isTrainer && (
+        {isPersonalTrainer && !clientId && (
           <button
             onClick={onCreate}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
@@ -92,12 +104,14 @@ export default function ProgramList({
           icon=""
           title="No programs yet"
           message={
-            isTrainer
+            clientId
+              ? "This client doesn't have any programs yet"
+              : isTrainer
               ? "Get started by creating your first workout program"
               : "You don't have any workout programs yet"
           }
         >
-          {isTrainer && (
+          {isPersonalTrainer && !clientId && (
             <button
               onClick={onCreate}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg"
@@ -124,6 +138,18 @@ export default function ProgramList({
               <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                 {program.description || "No description"}
               </p>
+              {isPersonalTrainer && !clientId && (
+                <>
+                  {program.clientId && (
+                    <p className="text-xs text-purple-600 mb-2">
+                      ✓ Assigned to client
+                    </p>
+                  )}
+                  {!program.clientId && (
+                    <p className="text-xs text-gray-500 mb-2">○ Unassigned</p>
+                  )}
+                </>
+              )}
               <div className="flex gap-2">
                 <button
                   onClick={() => onView(program.workoutProgramId)}
@@ -131,7 +157,7 @@ export default function ProgramList({
                 >
                   View
                 </button>
-                {isTrainer && (
+                {isPersonalTrainer && !clientId && (
                   <button
                     onClick={() => handleDelete(program.workoutProgramId)}
                     className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm"

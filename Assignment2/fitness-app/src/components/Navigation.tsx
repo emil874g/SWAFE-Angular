@@ -6,9 +6,13 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/programs", label: "Workout Programs" },
-  { href: "/exercises", label: "Exercises" },
-  { href: "/clients", label: "Clients", trainerOnly: true },
+  {
+    href: "/programs",
+    label: "Workout Programs",
+    personalTrainerOnly: true,
+    clientAccess: true,
+  },
+  { href: "/clients", label: "Clients", personalTrainerOnly: true },
   { href: "/trainers", label: "Trainers", managerOnly: true },
 ];
 
@@ -19,9 +23,9 @@ export default function Navigation() {
 
   if (!isAuthenticated) return null;
 
-  const isTrainer =
-    user?.accountType === "PersonalTrainer" || user?.accountType === "Manager";
+  const isPersonalTrainer = user?.accountType === "PersonalTrainer";
   const isManager = user?.accountType === "Manager";
+  const isClient = user?.accountType === "Client";
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200">
@@ -35,11 +39,12 @@ export default function Navigation() {
             </div>
             <div className="ml-8 flex space-x-4">
               {navItems
-                .filter(
-                  (item) =>
-                    (!item.trainerOnly || isTrainer) &&
-                    (!item.managerOnly || isManager)
-                )
+                .filter((item) => {
+                  if (item.managerOnly) return isManager;
+                  if (item.personalTrainerOnly) return isPersonalTrainer;
+                  if (item.clientAccess) return isClient || isPersonalTrainer;
+                  return true;
+                })
                 .map((item) => (
                   <Link
                     key={item.href}

@@ -19,6 +19,16 @@ function ExercisesContent() {
   const isTrainer =
     user?.accountType === "PersonalTrainer" || user?.accountType === "Manager";
 
+  if (!isTrainer) {
+    return (
+      <div className="max-w-7xl mx-auto px-8 py-8">
+        <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-lg">
+          This page is only accessible to personal trainers and managers.
+        </div>
+      </div>
+    );
+  }
+
   const goToList = () => router.push("/exercises");
   const goToEdit = (id: number) => router.push(`/exercises?id=${id}&mode=edit`);
   const goToCreate = () => router.push("/exercises?mode=create");

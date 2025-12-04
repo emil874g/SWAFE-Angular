@@ -78,7 +78,7 @@ export default function ExerciseForm({
         onClick={onBack}
         className="text-blue-600 hover:underline text-sm mb-6 block"
       >
-        ← Back to Exercises
+        Back to Exercises
       </button>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden max-w-2xl">

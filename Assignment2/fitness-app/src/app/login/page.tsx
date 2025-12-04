@@ -34,7 +34,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex bg-gray-50">
       {/* Left panel */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 to-blue-400 text-white items-center justify-center px-12">
+      <div className="hidden lg:flex lg:w-1/2 bg-linear-to-br from-blue-600 to-blue-400 text-white items-center justify-center px-12">
         <div className="max-w-md">
           <h1 className="text-4xl font-bold mb-4">Fitness App</h1>
         </div>

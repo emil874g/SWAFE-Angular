@@ -5,12 +5,22 @@ import Link from "next/link";
 import apiService from "@/services/api";
 import { User } from "@/types";
 import { useAuth } from "@/contexts/AuthContext";
+import { ErrorMessage } from "@/components/ui";
 
 export default function ClientsPage() {
   const [clients, setClients] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const { user } = useAuth();
+
+  // Client creation form state
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [createError, setCreateError] = useState("");
 
   useEffect(() => {
     fetchClients();
@@ -28,7 +38,43 @@ export default function ClientsPage() {
     }
   };
 
-  if (user?.accountType !== "PersonalTrainer") {
+  const handleCreateClient = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCreateError("");
+    setIsSaving(true);
+
+    try {
+      await apiService.createUser({
+        firstName,
+        lastName,
+        email,
+        password,
+        accountType: "Client",
+        personalTrainerId: user?.userId || null,
+      });
+
+      // Reset form
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setShowCreateForm(false);
+
+      // Refresh client list
+      await fetchClients();
+    } catch (err) {
+      setCreateError(
+        err instanceof Error ? err.message : "Failed to create client"
+      );
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const isTrainer =
+    user?.accountType === "PersonalTrainer" || user?.accountType === "Manager";
+
+  if (!isTrainer) {
     return (
       <div className="max-w-7xl mx-auto px-8 py-8">
         <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-lg">
@@ -46,11 +92,7 @@ export default function ClientsPage() {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -60,11 +102,91 @@ export default function ClientsPage() {
           <h1 className="text-3xl font-bold text-gray-900">My Clients</h1>
           <p className="mt-2 text-gray-600">Manage your client relationships</p>
         </div>
+        <button
+          onClick={() => setShowCreateForm(!showCreateForm)}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+        >
+          {showCreateForm ? "Cancel" : "+ New Client"}
+        </button>
       </div>
 
       {error && (
         <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
           {error}
+        </div>
+      )}
+
+      {/* Client Creation Form */}
+      {showCreateForm && (
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            Create New Client
+          </h2>
+
+          {createError && <ErrorMessage message={createError} />}
+
+          <form onSubmit={handleCreateClient} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSaving}
+              className="w-full py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
+            >
+              {isSaving ? "Creating..." : "Create Client"}
+            </button>
+          </form>
         </div>
       )}
 
@@ -86,10 +208,6 @@ export default function ClientsPage() {
           <h3 className="mt-4 text-lg font-medium text-gray-900">
             No clients yet
           </h3>
-          <p className="mt-2 text-gray-600">
-            When clients register and select you as their trainer, they will
-            appear here.
-          </p>
         </div>
       ) : (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
@@ -116,7 +234,7 @@ export default function ClientsPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="h-10 w-10 shrink-0">
-                        <div className="h-10 w-10 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-medium">
+                        <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium">
                           {client.firstName?.[0] ||
                             client.email?.[0]?.toUpperCase() ||
                             "?"}
@@ -160,7 +278,7 @@ export default function ClientsPage() {
 
       {/* Client Stats Summary */}
       {clients.length > 0 && (
-        <div className="mt-8 grid grid-cols-3 gap-6">
+        <div className="mt-8 grid grid-cols-2 gap-6">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center">
               <div className="p-3 rounded-full bg-blue-100">
@@ -208,44 +326,13 @@ export default function ClientsPage() {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-500">
-                  Quick Actions
+                  Workout Programs
                 </p>
                 <Link
-                  href="/programs/new"
+                  href="/programs"
                   className="text-sm text-green-600 hover:underline font-medium"
                 >
-                  Create Program →
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-purple-100">
-                <svg
-                  className="h-6 w-6 text-purple-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">
-                  Exercise Library
-                </p>
-                <Link
-                  href="/exercises"
-                  className="text-sm text-purple-600 hover:underline font-medium"
-                >
-                  Browse Exercises →
+                  Manage Programs →
                 </Link>
               </div>
             </div>

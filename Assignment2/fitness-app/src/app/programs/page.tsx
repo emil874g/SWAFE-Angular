@@ -3,7 +3,6 @@
 import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-
 import ProgramList from "./programs-components/ProgramList";
 import ProgramDetail from "./programs-components/ProgramDetail";
 import ProgramForm from "./programs-components/ProgramForm";
@@ -16,6 +15,7 @@ function ProgramsContent() {
   const { user } = useAuth();
 
   const programId = searchParams.get("id");
+  const clientId = searchParams.get("clientId"); // Get clientId from URL
   const mode =
     (searchParams.get("mode") as ViewMode) || (programId ? "view" : "list");
 
@@ -33,6 +33,7 @@ function ProgramsContent() {
         <ProgramList
           isTrainer={isTrainer}
           user={user}
+          clientId={clientId ? parseInt(clientId) : undefined}
           onView={goToView}
           onCreate={goToCreate}
         />
