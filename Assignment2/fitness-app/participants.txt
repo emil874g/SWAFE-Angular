@@ -1,6 +1,10 @@
-201609205 Camilla Jørgensen
-202207059 Emil Bødker Lydersen
-202107339 Oliver Kok
-202204902 Simon D. D. Andersen
+AU564294 Camilla Jørgensen
+
+AU725610 Emil Bødker Lydersen
+
+AU690389 Oliver Kok
+
+AU719555 Simon D. D. Andersen
+
 prefix: EL
 Group: 14
