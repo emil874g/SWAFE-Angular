@@ -7,7 +7,7 @@ import apiService from "@/services/api";
 import { WorkoutProgram, User } from "@/types";
 
 export default function DashboardPage() {
-  const { user } = useAuth();
+  const { user, isLoading: authLoading } = useAuth();
   const [programs, setPrograms] = useState<WorkoutProgram[]>([]);
   const [clients, setClients] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,9 +18,15 @@ export default function DashboardPage() {
   const isClient = accountType === "Client";
 
   useEffect(() => {
+    if (authLoading) return; // wait until AuthContext is ready
+
+    if (!user) {
+      setIsLoading(false);
+      return;
+    }
+
     const fetchData = async () => {
       try {
-        // Only fetch programs for trainers and clients
         if (!isManager) {
           const programsData = await apiService.getWorkoutPrograms();
           setPrograms(programsData);
@@ -38,7 +44,7 @@ export default function DashboardPage() {
     };
 
     fetchData();
-  }, [isManager, isPersonalTrainer]);
+  }, [authLoading, user, isManager, isPersonalTrainer]);
 
   if (isLoading) {
     return (

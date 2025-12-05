@@ -39,7 +39,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const decoded = jwtDecode<JwtPayload>(token);
       const userId = parseInt(decoded.UserId);
-      apiService.setToken(token);
       const user = await apiService.getUser(userId);
       return user;
     } catch (error) {
@@ -58,6 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         if (isExpired) {
           localStorage.removeItem(TOKEN_KEY);
+          apiService.setToken(null);
           setAuthState({
             user: null,
             token: null,
@@ -67,6 +67,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           return;
         }
 
+        // Set token immediately before any API calls
+        apiService.setToken(storedToken);
         const user = await fetchUser(storedToken);
         setAuthState({
           user,
@@ -77,6 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } catch (error) {
         console.error("Error initializing auth:", error);
         localStorage.removeItem(TOKEN_KEY);
+        apiService.setToken(null);
         setAuthState({
           user: null,
           token: null,
@@ -85,6 +88,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         });
       }
     } else {
+      apiService.setToken(null);
       setAuthState({
         user: null,
         token: null,
@@ -107,6 +111,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error("No token received");
       }
 
+      // Set token immediately after login
+      apiService.setToken(token);
       localStorage.setItem(TOKEN_KEY, token);
       const user = await fetchUser(token);
 
