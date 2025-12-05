@@ -44,8 +44,8 @@ export default function Navigation() {
               {navItems
                 .filter((item) => {
                   if (item.managerOnly) return isManager;
-                  if (item.personalTrainerOnly) return isPersonalTrainer;
                   if (item.clientAccess) return isClient || isPersonalTrainer;
+                  if (item.personalTrainerOnly) return isPersonalTrainer;
                   return true;
                 })
                 .map((item) => (
