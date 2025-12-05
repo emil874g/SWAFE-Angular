@@ -8,7 +8,6 @@ import { ErrorMessage } from "@/components/ui";
 interface ProgramDetailProps {
   id: number;
   isTrainer: boolean;
-  user: any;
   onBack: () => void;
   onEdit: (id: number) => void;
 }
@@ -16,7 +15,6 @@ interface ProgramDetailProps {
 export default function ProgramDetail({
   id,
   isTrainer,
-  user,
   onBack,
   onEdit,
 }: ProgramDetailProps) {
@@ -32,8 +30,6 @@ export default function ProgramDetail({
     time: "",
   });
 
-  const isPersonalTrainer = user?.accountType === "PersonalTrainer";
-
   useEffect(() => {
     apiService
       .getWorkoutProgram(id)
@@ -45,6 +41,7 @@ export default function ProgramDetail({
   const handleAddExercise = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!program) return;
+
     try {
       const exercise = await apiService.addExerciseToProgram(
         program.workoutProgramId,
@@ -69,7 +66,7 @@ export default function ProgramDetail({
   };
 
   const handleDeleteExercise = async (exerciseId: number) => {
-    if (!program || !isPersonalTrainer) return;
+    if (!program || !isTrainer) return;
     if (!confirm("Are you sure you want to remove this exercise?")) return;
 
     try {
@@ -86,10 +83,11 @@ export default function ProgramDetail({
   };
 
   if (isLoading) return null;
-  if (error || !program)
+  if (error || !program) {
     return (
       <ErrorMessage message={error || "Program not found"} onBack={onBack} />
     );
+  }
 
   return (
     <>
@@ -97,7 +95,7 @@ export default function ProgramDetail({
         onClick={onBack}
         className="text-blue-600 hover:underline text-sm mb-6 block"
       >
-        ← Back to Programs
+        Back to Programs
       </button>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
@@ -110,7 +108,7 @@ export default function ProgramDetail({
               {program.description || "No description"}
             </p>
           </div>
-          {isPersonalTrainer && (
+          {isTrainer && (
             <button
               onClick={() => onEdit(program.workoutProgramId)}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
@@ -125,9 +123,9 @@ export default function ProgramDetail({
             <h2 className="text-lg font-semibold text-gray-900">
               Exercises ({program.exercises?.length || 0})
             </h2>
-            {isPersonalTrainer && (
+            {isTrainer && (
               <button
-                onClick={() => setShowAddExercise(!showAddExercise)}
+                onClick={() => setShowAddExercise((prev) => !prev)}
                 className="text-blue-600 hover:underline text-sm"
               >
                 {showAddExercise ? "Cancel" : "+ Add Exercise"}
@@ -135,7 +133,7 @@ export default function ProgramDetail({
             )}
           </div>
 
-          {isPersonalTrainer && showAddExercise && (
+          {isTrainer && showAddExercise && (
             <form
               onSubmit={handleAddExercise}
               className="bg-gray-50 p-4 rounded-lg mb-4 space-y-3"
@@ -238,7 +236,7 @@ export default function ProgramDetail({
                       </p>
                     </div>
                   </div>
-                  {isPersonalTrainer && (
+                  {isTrainer && (
                     <button
                       onClick={(e) => {
                         e.stopPropagation();

@@ -3,7 +3,6 @@ import {
   CreateUserDto,
   LoginDto,
   TokenDto,
-  NewPasswordDto,
   Exercise,
   CreateExerciseDto,
   UpdateExerciseDto,
@@ -77,13 +76,6 @@ class ApiService {
       headers: this.getHeaders(),
     });
     return this.handleResponse<User[]>(response);
-  }
-
-  async getTrainer(): Promise<User> {
-    const response = await fetch(`${API_BASE_URL}/Users/Trainer`, {
-      headers: this.getHeaders(),
-    });
-    return this.handleResponse<User>(response);
   }
 
   // Exercise endpoints

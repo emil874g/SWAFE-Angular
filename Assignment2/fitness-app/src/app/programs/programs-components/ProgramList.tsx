@@ -33,13 +33,16 @@ export default function ProgramList({
         let data: WorkoutProgram[];
 
         if (clientId) {
+          // viewing programs for a specific client from /clients page
           data = await apiService.getClientPrograms(clientId);
         } else if (isTrainer) {
+          // personal trainer or manager: trainer-scoped programs
           data = await apiService.getTrainerPrograms();
         } else if (user?.accountType === "Client") {
+          // logged-in client: only their programs
           data = await apiService.getClientPrograms(user.userId);
-          data = data.filter((p) => p.clientId === user.userId);
         } else {
+          // fallback
           data = await apiService.getWorkoutPrograms();
         }
 
@@ -140,12 +143,11 @@ export default function ProgramList({
               </p>
               {isPersonalTrainer && !clientId && (
                 <>
-                  {program.clientId && (
+                  {program.clientId ? (
                     <p className="text-xs text-purple-600 mb-2">
                       ✓ Assigned to client
                     </p>
-                  )}
-                  {!program.clientId && (
+                  ) : (
                     <p className="text-xs text-gray-500 mb-2">○ Unassigned</p>
                   )}
                 </>

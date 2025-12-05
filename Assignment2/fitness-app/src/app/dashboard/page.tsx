@@ -12,9 +12,10 @@ export default function DashboardPage() {
   const [clients, setClients] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const isPersonalTrainer = user?.accountType === "PersonalTrainer";
-  const isManager = user?.accountType === "Manager";
-  const isClient = user?.accountType === "Client";
+  const accountType = user?.accountType;
+  const isPersonalTrainer = accountType === "PersonalTrainer";
+  const isManager = accountType === "Manager";
+  const isClient = accountType === "Client";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,72 +38,97 @@ export default function DashboardPage() {
     };
 
     fetchData();
-  }, [isPersonalTrainer, isManager]);
+  }, [isManager, isPersonalTrainer]);
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
       </div>
     );
   }
 
+  if (isManager) {
+    return <ManagerDashboard firstName={user?.firstName} />;
+  }
+
+  return (
+    <TrainerClientDashboard
+      firstName={user?.firstName}
+      isPersonalTrainer={isPersonalTrainer}
+      isClient={isClient}
+      programs={programs}
+      clients={clients}
+    />
+  );
+}
+
+function ManagerDashboard({ firstName }: { firstName?: string | null }) {
+  return (
+    <div className="max-w-7xl mx-auto px-8 py-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">
+          Welcome back, {firstName}!
+        </h1>
+        <p className="mt-2 text-gray-600">
+          Manage your personal trainers and oversee the fitness center
+        </p>
+      </div>
+
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="p-6 border-b border-gray-200">
+          <h2 className="text-lg font-semibold text-gray-900">
+            Management Tools
+          </h2>
+        </div>
+        <div className="p-6">
+          <Link
+            href="/trainers"
+            className="flex items-center gap-4 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg hover:shadow-md transition-all"
+          >
+            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-white text-2xl font-bold">T</span>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 text-lg">
+                Create Personal Trainer
+              </h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Add new trainers to your fitness center
+              </p>
+            </div>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface TrainerClientDashboardProps {
+  firstName?: string | null;
+  isPersonalTrainer: boolean;
+  isClient: boolean;
+  programs: WorkoutProgram[];
+  clients: User[];
+}
+
+function TrainerClientDashboard({
+  firstName,
+  isPersonalTrainer,
+  isClient,
+  programs,
+  clients,
+}: TrainerClientDashboardProps) {
   const totalExercises = programs.reduce(
     (acc, p) => acc + (p.exercises?.length || 0),
     0
   );
 
-  // Manager Dashboard
-  if (isManager) {
-    return (
-      <div className="max-w-7xl mx-auto px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Welcome back, {user?.firstName}!
-          </h1>
-          <p className="mt-2 text-gray-600">
-            Manage your personal trainers and oversee the fitness center
-          </p>
-        </div>
-
-        {/* Manager Actions */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">
-              Management Tools
-            </h2>
-          </div>
-          <div className="p-6">
-            <Link
-              href="/trainers"
-              className="flex items-center gap-4 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg hover:shadow-md transition-all"
-            >
-              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white text-2xl font-bold">T</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 text-lg">
-                  Create Personal Trainer
-                </h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  Add new trainers to your fitness center
-                </p>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Trainer/Client Dashboard
   return (
     <div className="max-w-7xl mx-auto px-8 py-8">
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">
-          Welcome back, {user?.firstName}!
+          Welcome back, {firstName}!
         </h1>
         <p className="mt-2 text-gray-600">
           {isPersonalTrainer
@@ -111,54 +137,29 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <span className="text-xl font-bold text-blue-600">P</span>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-gray-900">
-                {programs.length}
-              </p>
-              <p className="text-sm text-gray-500">Workout Programs</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <span className="text-xl font-bold text-green-600">E</span>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-gray-900">
-                {totalExercises}
-              </p>
-              <p className="text-sm text-gray-500">Total Exercises</p>
-            </div>
-          </div>
-        </div>
-
+        <StatCard
+          label="Workout Programs"
+          value={programs.length}
+          badge="P"
+          badgeColor="bg-blue-100 text-blue-600"
+        />
+        <StatCard
+          label="Total Exercises"
+          value={totalExercises}
+          badge="E"
+          badgeColor="bg-green-100 text-green-600"
+        />
         {isPersonalTrainer && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                <span className="text-xl font-bold text-purple-600">C</span>
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-gray-900">
-                  {clients.length}
-                </p>
-                <p className="text-sm text-gray-500">Active Clients</p>
-              </div>
-            </div>
-          </div>
+          <StatCard
+            label="Active Clients"
+            value={clients.length}
+            badge="C"
+            badgeColor="bg-purple-100 text-purple-600"
+          />
         )}
       </div>
 
-      {/* Recent Programs */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200 flex justify-between items-center">
           <h2 className="text-lg font-semibold text-gray-900">
@@ -206,6 +207,31 @@ export default function DashboardPage() {
               ))}
             </div>
           )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface StatCardProps {
+  label: string;
+  value: number;
+  badge: string;
+  badgeColor: string;
+}
+
+function StatCard({ label, value, badge, badgeColor }: StatCardProps) {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="flex items-center gap-4">
+        <div
+          className={`w-12 h-12 rounded-lg flex items-center justify-center ${badgeColor}`}
+        >
+          <span className="text-xl font-bold">{badge}</span>
+        </div>
+        <div>
+          <p className="text-2xl font-bold text-gray-900">{value}</p>
+          <p className="text-sm text-gray-500">{label}</p>
         </div>
       </div>
     </div>

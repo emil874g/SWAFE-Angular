@@ -35,7 +35,7 @@ export default function ExerciseList({
     if (!confirm("Are you sure you want to delete this exercise?")) return;
     try {
       await apiService.deleteExercise(id);
-      setExercises(exercises.filter((e) => e.exerciseId !== id));
+      setExercises((prev) => prev.filter((e) => e.exerciseId !== id));
     } catch {
       alert("Failed to delete exercise");
     }
@@ -66,7 +66,6 @@ export default function ExerciseList({
         )}
       </div>
 
-      {/* Filter tabs */}
       <div className="flex gap-2 mb-6">
         {(["all", "assigned", "unassigned"] as FilterType[]).map((f) => (
           <button
@@ -180,5 +179,3 @@ export default function ExerciseList({
     </>
   );
 }
-
-export { default as ExerciseList } from "./ExerciseList";

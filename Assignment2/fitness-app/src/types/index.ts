@@ -26,13 +26,6 @@ export interface LoginDto {
 export interface TokenDto {
   jwt: string;
 }
-
-export interface NewPasswordDto {
-  email: string;
-  password: string;
-  oldPassword: string;
-}
-
 // Exercise types
 export interface Exercise {
   exerciseId: number;

@@ -15,7 +15,7 @@ function ProgramsContent() {
   const { user } = useAuth();
 
   const programId = searchParams.get("id");
-  const clientId = searchParams.get("clientId"); // Get clientId from URL
+  const clientId = searchParams.get("clientId");
   const mode =
     (searchParams.get("mode") as ViewMode) || (programId ? "view" : "list");
 
@@ -48,7 +48,6 @@ function ProgramsContent() {
       )}
       {mode === "create" && (
         <ProgramForm
-          isTrainer={isTrainer}
           onBack={goToList}
           onSuccess={goToView}
         />
@@ -56,7 +55,6 @@ function ProgramsContent() {
       {mode === "edit" && programId && (
         <ProgramForm
           id={parseInt(programId)}
-          isTrainer={isTrainer}
           onBack={() => goToView(parseInt(programId))}
           onSuccess={goToView}
         />

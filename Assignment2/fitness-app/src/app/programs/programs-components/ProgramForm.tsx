@@ -7,14 +7,12 @@ import { ErrorMessage } from "@/components/ui";
 
 interface ProgramFormProps {
   id?: number;
-  isTrainer: boolean;
   onBack: () => void;
   onSuccess: (id: number) => void;
 }
 
 export default function ProgramForm({
   id,
-  isTrainer,
   onBack,
   onSuccess,
 }: ProgramFormProps) {
@@ -41,7 +39,7 @@ export default function ProgramForm({
             description: program.description,
             personalTrainerId: program.personalTrainerId,
             clientId: program.clientId,
-          });
+          } as UpdateWorkoutDto);
         }
       } catch {
         setError("Failed to load data");
@@ -82,7 +80,7 @@ export default function ProgramForm({
         onClick={onBack}
         className="text-blue-600 hover:underline text-sm mb-6 block"
       >
-        ← Back
+        Back
       </button>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden max-w-2xl">
@@ -174,4 +172,3 @@ export default function ProgramForm({
     </>
   );
 }
-export { default as ProgramForm } from "./ProgramForm";

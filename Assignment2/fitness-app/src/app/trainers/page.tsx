@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import apiService from "@/services/api";
@@ -20,9 +20,14 @@ export default function TrainersPage() {
 
   const isManager = user?.accountType === "Manager";
 
+  useEffect(() => {
+    if (!isManager) {
+      router.replace("/dashboard");
+    }
+  }, [isManager, router]);
+
   if (!isManager) {
-    // Hard redirect non‑managers away
-    router.replace("/dashboard");
+    // show nothing while redirecting
     return null;
   }
 

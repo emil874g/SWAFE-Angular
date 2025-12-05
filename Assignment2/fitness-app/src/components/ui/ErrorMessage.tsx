@@ -11,7 +11,7 @@ export default function ErrorMessage({ message, onBack }: ErrorMessageProps) {
       </div>
       {onBack && (
         <button onClick={onBack} className="mt-4 text-blue-600 hover:underline">
-          ← Back
+          Back
         </button>
       )}
     </div>
