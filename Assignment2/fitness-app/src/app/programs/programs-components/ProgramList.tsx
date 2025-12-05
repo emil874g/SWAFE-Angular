@@ -93,9 +93,9 @@ export default function ProgramList({
         {isPersonalTrainer && !clientId && (
           <button
             onClick={onCreate}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+            className="px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700"
           >
-            + New Program
+            New Program
           </button>
         )}
       </div>
@@ -117,7 +117,7 @@ export default function ProgramList({
           {isPersonalTrainer && !clientId && (
             <button
               onClick={onCreate}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+              className="px-4 py-2 bg-teal-600 text-white rounded-lg"
             >
               Create Program
             </button>
@@ -134,7 +134,7 @@ export default function ProgramList({
                 <h3 className="text-lg font-semibold text-gray-900">
                   {program.name || "Unnamed Program"}
                 </h3>
-                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                <span className="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full">
                   {program.exercises?.length || 0} exercises
                 </span>
               </div>
@@ -144,11 +144,11 @@ export default function ProgramList({
               {isPersonalTrainer && !clientId && (
                 <>
                   {program.clientId ? (
-                    <p className="text-xs text-purple-600 mb-2">
-                      ✓ Assigned to client
+                    <p className="text-xs text-emerald-600 mb-2">
+                      Assigned to client
                     </p>
                   ) : (
-                    <p className="text-xs text-gray-500 mb-2">○ Unassigned</p>
+                    <p className="text-xs text-gray-500 mb-2">Unassigned</p>
                   )}
                 </>
               )}

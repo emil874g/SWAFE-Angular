@@ -10,7 +10,7 @@ export default function ErrorMessage({ message, onBack }: ErrorMessageProps) {
         {message}
       </div>
       {onBack && (
-        <button onClick={onBack} className="mt-4 text-blue-600 hover:underline">
+        <button onClick={onBack} className="mt-4 text-teal-600 hover:underline">
           Back
         </button>
       )}

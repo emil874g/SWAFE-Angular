@@ -67,7 +67,7 @@ export default function ClientCreateForm({ onCreated }: ClientCreateFormProps) {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-gray-900"
             />
           </div>
           <div>
@@ -79,7 +79,7 @@ export default function ClientCreateForm({ onCreated }: ClientCreateFormProps) {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-gray-900"
             />
           </div>
         </div>
@@ -93,7 +93,7 @@ export default function ClientCreateForm({ onCreated }: ClientCreateFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-gray-900"
           />
         </div>
 
@@ -106,14 +106,14 @@ export default function ClientCreateForm({ onCreated }: ClientCreateFormProps) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-gray-900"
           />
         </div>
 
         <button
           type="submit"
           disabled={isSaving}
-          className="w-full py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
+          className="w-full py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 disabled:opacity-50"
         >
           {isSaving ? "Creating..." : "Create Client"}
         </button>

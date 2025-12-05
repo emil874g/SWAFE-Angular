@@ -14,7 +14,7 @@ export default function ClientSummary({ clients }: ClientSummaryProps) {
     <div className="mt-8 grid grid-cols-2 gap-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center">
-          <div className="p-3 rounded-full bg-blue-100">
+          <div className="p-3 rounded-full bg-teal-100">
             {/* icon */}
           </div>
           <div className="ml-4">
@@ -26,7 +26,7 @@ export default function ClientSummary({ clients }: ClientSummaryProps) {
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center">
-          <div className="p-3 rounded-full bg-green-100">
+          <div className="p-3 rounded-full bg-emerald-100">
             {/* icon */}
           </div>
           <div className="ml-4">
@@ -35,7 +35,7 @@ export default function ClientSummary({ clients }: ClientSummaryProps) {
             </p>
             <Link
               href="/programs"
-              className="text-sm text-green-600 hover:underline font-medium"
+              className="text-sm text-emerald-600 hover:underline font-medium"
             >
               Manage Programs →
             </Link>

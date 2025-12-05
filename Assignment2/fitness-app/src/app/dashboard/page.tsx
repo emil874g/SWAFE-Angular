@@ -49,7 +49,7 @@ export default function DashboardPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600" />
       </div>
     );
   }
@@ -90,9 +90,9 @@ function ManagerDashboard({ firstName }: { firstName?: string | null }) {
         <div className="p-6">
           <Link
             href="/trainers"
-            className="flex items-center gap-4 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg hover:shadow-md transition-all"
+            className="flex items-center gap-4 p-6 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg hover:shadow-md transition-all"
           >
-            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center">
               <span className="text-white text-2xl font-bold">T</span>
             </div>
             <div>
@@ -148,20 +148,20 @@ function TrainerClientDashboard({
           label="Workout Programs"
           value={programs.length}
           badge="P"
-          badgeColor="bg-blue-100 text-blue-600"
+          badgeColor="bg-teal-100 text-teal-700"
         />
         <StatCard
           label="Total Exercises"
           value={totalExercises}
           badge="E"
-          badgeColor="bg-green-100 text-green-600"
+          badgeColor="bg-emerald-100 text-emerald-700"
         />
         {isPersonalTrainer && (
           <StatCard
             label="Active Clients"
             value={clients.length}
             badge="C"
-            badgeColor="bg-purple-100 text-purple-600"
+            badgeColor="bg-cyan-100 text-cyan-700"
           />
         )}
       </div>
@@ -173,7 +173,7 @@ function TrainerClientDashboard({
           </h2>
           <Link
             href="/programs"
-            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+            className="text-sm text-teal-600 hover:text-teal-700 font-medium"
           >
             View all →
           </Link>
@@ -205,7 +205,7 @@ function TrainerClientDashboard({
                         {program.description || "No description"}
                       </p>
                     </div>
-                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                    <span className="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full">
                       {program.exercises?.length || 0} exercises
                     </span>
                   </div>

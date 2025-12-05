@@ -78,7 +78,7 @@ export default function ProgramForm({
     <>
       <button
         onClick={onBack}
-        className="text-blue-600 hover:underline text-sm mb-6 block"
+        className="text-teal-600 hover:underline text-sm mb-6 block"
       >
         Back
       </button>
@@ -103,7 +103,7 @@ export default function ProgramForm({
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-gray-900"
               placeholder="e.g., Full Body Workout"
               required
             />
@@ -118,7 +118,7 @@ export default function ProgramForm({
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })
               }
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-gray-900"
               rows={3}
               placeholder="Describe the program..."
             />
@@ -136,7 +136,7 @@ export default function ProgramForm({
                   clientId: e.target.value ? parseInt(e.target.value) : null,
                 })
               }
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-gray-900"
             >
               <option value="">No client assigned</option>
               {clients.map((client) => (
@@ -151,7 +151,7 @@ export default function ProgramForm({
             <button
               type="submit"
               disabled={isSaving}
-              className="flex-1 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
+              className="flex-1 py-3 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 disabled:opacity-50"
             >
               {isSaving
                 ? "Saving..."

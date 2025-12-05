@@ -46,7 +46,7 @@ export default function ClientsPage() {
 
         <Link
           href="/dashboard"
-          className="mt-4 inline-block text-blue-600 hover:underline"
+          className="mt-4 inline-block text-teal-600 hover:underline"
         >
           Back to Dashboard
         </Link>
@@ -65,9 +65,9 @@ export default function ClientsPage() {
         </div>
         <button
           onClick={() => setShowCreateForm((prev) => !prev)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+          className="px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700"
         >
-          {showCreateForm ? "Cancel" : "+ New Client"}
+          {showCreateForm ? "Cancel" : "New Client"}
         </button>
       </div>
 

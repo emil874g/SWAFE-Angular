@@ -31,12 +31,12 @@ export default function Navigation() {
   const isClient = user?.accountType === "Client";
 
   return (
-    <nav className="bg-white shadow-lg border-b border-gray-200">
+    <nav className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-blue-600">
+              <span className="text-2xl font-bold text-teal-600">
                 Fitness App
               </span>
             </div>
@@ -55,7 +55,7 @@ export default function Navigation() {
                     className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                       pathname === item.href ||
                       pathname.startsWith(item.href + "/")
-                        ? "bg-blue-50 text-blue-700"
+                        ? "bg-teal-50 text-teal-700"
                         : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                     }`}
                   >

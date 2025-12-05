@@ -43,7 +43,7 @@ export default function ClientTable({ clients }: ClientTableProps) {
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
                   <div className="h-10 w-10 shrink-0">
-                    <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium">
+                    <div className="h-10 w-10 rounded-full bg-teal-600 flex items-center justify-center text-white font-medium">
                       {client.firstName?.[0] ||
                         client.email?.[0]?.toUpperCase() ||
                         "?"}
@@ -65,14 +65,14 @@ export default function ClientTable({ clients }: ClientTableProps) {
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                   {client.accountType || "Client"}
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <Link
                   href={`/programs?clientId=${client.userId}`}
-                  className="text-blue-600 hover:text-blue-800"
+                  className="text-teal-600 hover:text-teal-800"
                 >
                   View Programs
                 </Link>

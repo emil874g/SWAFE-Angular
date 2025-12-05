@@ -120,13 +120,6 @@ class ApiService {
     await this.handleResponse<void>(response);
   }
 
-  async deleteExercise(id: number): Promise<void> {
-    const response = await fetch(`${API_BASE_URL}/Exercises/${id}`, {
-      method: 'DELETE',
-      headers: this.getHeaders(),
-    });
-    await this.handleResponse<void>(response);
-  }
   // Workout Program endpoints
   async getWorkoutPrograms(): Promise<WorkoutProgram[]> {
     const response = await fetch(`${API_BASE_URL}/WorkoutPrograms`, {

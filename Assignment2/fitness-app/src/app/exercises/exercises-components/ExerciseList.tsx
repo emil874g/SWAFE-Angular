@@ -31,16 +31,6 @@ export default function ExerciseList({
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleDelete = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this exercise?")) return;
-    try {
-      await apiService.deleteExercise(id);
-      setExercises((prev) => prev.filter((e) => e.exerciseId !== id));
-    } catch {
-      alert("Failed to delete exercise");
-    }
-  };
-
   const filteredExercises = exercises.filter((exercise) => {
     if (filter === "assigned") return exercise.workoutProgramId !== null;
     if (filter === "unassigned") return exercise.workoutProgramId === null;
@@ -59,13 +49,14 @@ export default function ExerciseList({
         {isTrainer && (
           <button
             onClick={onCreate}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+            className="px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700"
           >
-            + New Exercise
+            New Exercise
           </button>
         )}
       </div>
 
+      {/* Filter tabs */}
       <div className="flex gap-2 mb-6">
         {(["all", "assigned", "unassigned"] as FilterType[]).map((f) => (
           <button
@@ -73,7 +64,7 @@ export default function ExerciseList({
             onClick={() => setFilter(f)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === f
-                ? "bg-blue-600 text-white"
+                ? "bg-teal-600 text-white"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
@@ -97,7 +88,7 @@ export default function ExerciseList({
           {isTrainer && filter === "all" && (
             <button
               onClick={onCreate}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+              className="px-4 py-2 bg-teal-600 text-white rounded-lg"
             >
               Create Exercise
             </button>
@@ -147,7 +138,7 @@ export default function ExerciseList({
                     <span
                       className={`inline-flex px-2 py-1 text-xs rounded-full ${
                         exercise.workoutProgramId
-                          ? "bg-green-100 text-green-700"
+                          ? "bg-emerald-100 text-emerald-700"
                           : "bg-gray-100 text-gray-600"
                       }`}
                     >
@@ -155,18 +146,12 @@ export default function ExerciseList({
                     </span>
                   </td>
                   {isTrainer && (
-                    <td className="px-6 py-4 text-right space-x-2">
+                    <td className="px-6 py-4 text-right">
                       <button
                         onClick={() => onEdit(exercise.exerciseId)}
-                        className="text-blue-600 hover:underline text-sm"
+                        className="text-teal-600 hover:underline text-sm"
                       >
                         Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(exercise.exerciseId)}
-                        className="text-red-600 hover:underline text-sm"
-                      >
-                        Delete
                       </button>
                     </td>
                   )}
@@ -179,3 +164,5 @@ export default function ExerciseList({
     </>
   );
 }
+
+export { default as ExerciseList } from "./ExerciseList";
