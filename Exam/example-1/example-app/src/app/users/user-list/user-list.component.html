@@ -1,0 +1,10 @@
+<!-- user-list.component.html (use @for OR *ngFor) -->
+<h2>Users</h2>
+<ul>
+  @for (user of users; track user.id) {
+    <app-user-item
+      [user]="user"
+      (selected)="onUserSelected($event)">
+    </app-user-item>
+  }
+</ul>
