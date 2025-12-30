@@ -44,7 +44,6 @@ function ExercisesContent() {
       )}
       {mode === "create" && (
         <ExerciseForm
-          isTrainer={isTrainer}
           onBack={goToList}
           onSuccess={goToList}
         />
@@ -52,7 +51,6 @@ function ExercisesContent() {
       {mode === "edit" && exerciseId && (
         <ExerciseForm
           id={parseInt(exerciseId)}
-          isTrainer={isTrainer}
           onBack={goToList}
           onSuccess={goToList}
         />

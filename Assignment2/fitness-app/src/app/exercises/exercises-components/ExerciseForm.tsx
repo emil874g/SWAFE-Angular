@@ -7,14 +7,12 @@ import { ErrorMessage } from "@/components/ui";
 
 interface ExerciseFormProps {
   id?: number;
-  isTrainer: boolean;
   onBack: () => void;
   onSuccess: () => void;
 }
 
 export default function ExerciseForm({
   id,
-  isTrainer,
   onBack,
   onSuccess,
 }: ExerciseFormProps) {
@@ -31,21 +29,21 @@ export default function ExerciseForm({
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (id) {
-      apiService
-        .getExercise(id)
-        .then((exercise) => {
-          setFormData({
-            name: exercise.name,
-            description: exercise.description,
-            sets: exercise.sets,
-            repetitions: exercise.repetitions,
-            time: exercise.time,
-          });
-        })
-        .catch(() => setError("Failed to load exercise"))
-        .finally(() => setIsLoading(false));
-    }
+    if (!id) return;
+
+    apiService
+      .getExercise(id)
+      .then((exercise) => {
+        setFormData({
+          name: exercise.name,
+          description: exercise.description,
+          sets: exercise.sets,
+          repetitions: exercise.repetitions,
+          time: exercise.time,
+        });
+      })
+      .catch(() => setError("Failed to load exercise"))
+      .finally(() => setIsLoading(false));
   }, [id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,10 +53,10 @@ export default function ExerciseForm({
 
     try {
       if (isEdit && id) {
-        await apiService.updateExercise(id, {
-          exerciseId: id,
-          ...formData,
-        } as UpdateExerciseDto);
+        await apiService.updateExercise(
+          id,
+          { exerciseId: id, ...formData } as UpdateExerciseDto
+        );
       } else {
         await apiService.createExercise(formData);
       }
@@ -129,7 +127,7 @@ export default function ExerciseForm({
               </label>
               <input
                 type="number"
-                value={formData.sets || ""}
+                value={formData.sets ?? ""}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
@@ -138,7 +136,7 @@ export default function ExerciseForm({
                 }
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
                 placeholder="3"
-                min="1"
+                min={1}
               />
             </div>
             <div>
@@ -147,7 +145,7 @@ export default function ExerciseForm({
               </label>
               <input
                 type="number"
-                value={formData.repetitions || ""}
+                value={formData.repetitions ?? ""}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
@@ -156,7 +154,7 @@ export default function ExerciseForm({
                 }
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
                 placeholder="10"
-                min="1"
+                min={1}
               />
             </div>
             <div>
@@ -200,4 +198,3 @@ export default function ExerciseForm({
     </>
   );
 }
-export { default as ExerciseForm } from "./ExerciseForm";

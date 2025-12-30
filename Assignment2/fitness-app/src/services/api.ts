@@ -3,7 +3,6 @@ import {
   CreateUserDto,
   LoginDto,
   TokenDto,
-  NewPasswordDto,
   Exercise,
   CreateExerciseDto,
   UpdateExerciseDto,
@@ -79,13 +78,6 @@ class ApiService {
     return this.handleResponse<User[]>(response);
   }
 
-  async getTrainer(): Promise<User> {
-    const response = await fetch(`${API_BASE_URL}/Users/Trainer`, {
-      headers: this.getHeaders(),
-    });
-    return this.handleResponse<User>(response);
-  }
-
   // Exercise endpoints
   async getExercises(): Promise<Exercise[]> {
     const response = await fetch(`${API_BASE_URL}/Exercises`, {
@@ -128,13 +120,6 @@ class ApiService {
     await this.handleResponse<void>(response);
   }
 
-  async deleteExercise(id: number): Promise<void> {
-    const response = await fetch(`${API_BASE_URL}/Exercises/${id}`, {
-      method: 'DELETE',
-      headers: this.getHeaders(),
-    });
-    await this.handleResponse<void>(response);
-  }
   // Workout Program endpoints
   async getWorkoutPrograms(): Promise<WorkoutProgram[]> {
     const response = await fetch(`${API_BASE_URL}/WorkoutPrograms`, {

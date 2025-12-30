@@ -8,7 +8,6 @@ import { ErrorMessage } from "@/components/ui";
 interface ProgramDetailProps {
   id: number;
   isTrainer: boolean;
-  user: any;
   onBack: () => void;
   onEdit: (id: number) => void;
 }
@@ -16,7 +15,6 @@ interface ProgramDetailProps {
 export default function ProgramDetail({
   id,
   isTrainer,
-  user,
   onBack,
   onEdit,
 }: ProgramDetailProps) {
@@ -32,8 +30,6 @@ export default function ProgramDetail({
     time: "",
   });
 
-  const isPersonalTrainer = user?.accountType === "PersonalTrainer";
-
   useEffect(() => {
     apiService
       .getWorkoutProgram(id)
@@ -45,6 +41,7 @@ export default function ProgramDetail({
   const handleAddExercise = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!program) return;
+
     try {
       const exercise = await apiService.addExerciseToProgram(
         program.workoutProgramId,
@@ -68,36 +65,20 @@ export default function ProgramDetail({
     }
   };
 
-  const handleDeleteExercise = async (exerciseId: number) => {
-    if (!program || !isPersonalTrainer) return;
-    if (!confirm("Are you sure you want to remove this exercise?")) return;
-
-    try {
-      await apiService.deleteExercise(exerciseId);
-      setProgram({
-        ...program,
-        exercises:
-          program.exercises?.filter((e) => e.exerciseId !== exerciseId) || [],
-      });
-    } catch (err) {
-      console.error("Failed to delete exercise:", err);
-      alert("Failed to remove exercise. Please try again.");
-    }
-  };
-
   if (isLoading) return null;
-  if (error || !program)
+  if (error || !program) {
     return (
       <ErrorMessage message={error || "Program not found"} onBack={onBack} />
     );
+  }
 
   return (
     <>
       <button
         onClick={onBack}
-        className="text-blue-600 hover:underline text-sm mb-6 block"
+        className="text-teal-600 hover:underline text-sm mb-6 block"
       >
-        ← Back to Programs
+        Back to Programs
       </button>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
@@ -110,10 +91,10 @@ export default function ProgramDetail({
               {program.description || "No description"}
             </p>
           </div>
-          {isPersonalTrainer && (
+          {isTrainer && (
             <button
               onClick={() => onEdit(program.workoutProgramId)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+              className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 text-sm"
             >
               Edit Program
             </button>
@@ -125,17 +106,17 @@ export default function ProgramDetail({
             <h2 className="text-lg font-semibold text-gray-900">
               Exercises ({program.exercises?.length || 0})
             </h2>
-            {isPersonalTrainer && (
+            {isTrainer && (
               <button
-                onClick={() => setShowAddExercise(!showAddExercise)}
-                className="text-blue-600 hover:underline text-sm"
+                onClick={() => setShowAddExercise((prev) => !prev)}
+                className="text-teal-600 hover:underline text-sm"
               >
-                {showAddExercise ? "Cancel" : "+ Add Exercise"}
+                {showAddExercise ? "Cancel" : "Add Exercise"}
               </button>
             )}
           </div>
 
-          {isPersonalTrainer && showAddExercise && (
+          {isTrainer && showAddExercise && (
             <form
               onSubmit={handleAddExercise}
               className="bg-gray-50 p-4 rounded-lg mb-4 space-y-3"
@@ -199,7 +180,7 @@ export default function ProgramDetail({
               </div>
               <button
                 type="submit"
-                className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="w-full py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
               >
                 Add Exercise
               </button>
@@ -215,40 +196,27 @@ export default function ProgramDetail({
               {program.exercises?.map((exercise, index) => (
                 <div
                   key={exercise.exerciseId}
-                  className="flex items-start justify-between p-4 bg-gray-50 rounded-lg"
+                  className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg"
                 >
-                  <div className="flex items-start gap-4 flex-1">
-                    <span className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold shrink-0 mt-1">
-                      {index + 1}
-                    </span>
-                    <div className="flex-1">
-                      <h3 className="font-medium text-gray-900">
-                        {exercise.name || "Unnamed"}
-                      </h3>
-                      {exercise.description && (
-                        <p className="text-sm text-gray-500 mt-1">
-                          {exercise.description}
-                        </p>
-                      )}
-                      <p className="text-sm text-gray-600 mt-1">
-                        {exercise.sets && `${exercise.sets} sets`}{" "}
-                        {exercise.repetitions &&
-                          `× ${exercise.repetitions} reps`}{" "}
-                        {exercise.time && `• ${exercise.time}`}
+                  <span className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold shrink-0 mt-1">
+                    {index + 1}
+                  </span>
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900">
+                      {exercise.name || "Unnamed"}
+                    </h3>
+                    {exercise.description && (
+                      <p className="text-sm text-gray-500 mt-1">
+                        {exercise.description}
                       </p>
-                    </div>
+                    )}
+                    <p className="text-sm text-gray-600 mt-1">
+                      {exercise.sets && `${exercise.sets} sets`}{" "}
+                      {exercise.repetitions &&
+                        `× ${exercise.repetitions} reps`}{" "}
+                      {exercise.time && `• ${exercise.time}`}
+                    </p>
                   </div>
-                  {isPersonalTrainer && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeleteExercise(exercise.exerciseId);
-                      }}
-                      className="text-red-600 hover:bg-red-50 px-3 py-1 rounded text-sm ml-4"
-                    >
-                      Remove
-                    </button>
-                  )}
                 </div>
               ))}
             </div>
