@@ -1,33 +1,29 @@
 // app.component.ts
-// Entry point for the demo app. Sections are clearly marked per exam question.
+// Root component: navigation for Q1–Q5 and router outlet.
 
 import { Component } from '@angular/core';
-import { UserListComponent } from './users/user-list/user-list.component';
-import { SelectedUserComponent } from './users/selected-user/selected-user.component';
-import { UserSearchComponent } from './users/user-search/user-search.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [UserListComponent, SelectedUserComponent, UserSearchComponent],
-  styleUrls: ['./app.scss'],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   template: `
-    <h1>Angular Demo – Exam Questions</h1>
+    <header class="app-header">
+      <h1>Angular Exam Demo</h1>
+      <nav>
+        <!-- Q3: navigation using routerLink -->
+        <a routerLink="/q1" routerLinkActive="active">Q1 - Angular basics</a>
+        <a routerLink="/q2" routerLinkActive="active">Q2 - Reactive & HTTP</a>
+        <a routerLink="/q3" routerLinkActive="active">Q3 - Routing & SSR</a>
+        <a routerLink="/q4" routerLinkActive="active">Q4 - Forms & Testing</a>
+        <a routerLink="/q5" routerLinkActive="active">Q5 - Signals & Styling</a>
+      </nav>
+    </header>
 
-    <!-- Q1 section: components, services, DI, pipes, directives, communication -->
-    <section>
-      <h2>Question 1 – Angular in general</h2>
-      <app-user-list></app-user-list>
-      <app-selected-user></app-selected-user>
-    </section>
-
-    <!-- Q2 section: reactive programming, Observables/RxJS, HttpClient -->
-    <section>
-      <h2>Question 2 – Reactive programming & HttpClient</h2>
-      <app-user-search></app-user-search>
-    </section>
-
-    <!-- Future questions: add new sections marked Q3, Q4, etc. -->
+    <main class="app-main">
+      <router-outlet></router-outlet>
+    </main>
   `,
 })
 export class App {}
