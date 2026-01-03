@@ -1,10 +1,27 @@
-<!-- user-list.component.html (use @for OR *ngFor) -->
-<h2>Users</h2>
-<ul>
-  @for (user of users; track user.id) {
-    <app-user-item
-      [user]="user"
-      (selected)="onUserSelected($event)">
-    </app-user-item>
-  }
-</ul>
+<!-- user-list.component.html -->
+
+<div class="list-container">
+  <section class="card">
+    <h2>Q1: Users from local array</h2>
+    <div class="user-grid">
+      @for (user of localUsers; track user.id) {
+        <app-user-item
+          [user]="user"
+          (selected)="onUserSelected($event)">
+        </app-user-item>
+      }
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Q2: Users from HttpClient (Observable + async pipe)</h2>
+    <div class="user-grid">
+      @for (user of (users$ | async) ?? []; track user.id) {
+        <app-user-item
+          [user]="user"
+          (selected)="onUserSelected($event)">
+        </app-user-item>
+      }
+    </div>
+  </section>
+</div>
