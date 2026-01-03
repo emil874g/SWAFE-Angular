@@ -3,11 +3,8 @@ import { Component, signal, computed } from '@angular/core';
 @Component({
   selector: 'app-signals-demo',
   standalone: true,
-  template: `
-    <p>Count: {{ count() }}</p>
-    <button type="button" (click)="increment()">Increment</button>
-    <p>Double: {{ doubleCount() }}</p>
-  `,
+  templateUrl: './signals-demo.component.html',
+  styleUrl: './signals-demo.component.scss'
 })
 export class SignalsDemoComponent {
   count = signal(0);

@@ -7,28 +7,7 @@ import { MatCardModule } from '@angular/material/card';
   selector: 'app-material-demo',
   standalone: true,
   imports: [MatToolbarModule, MatButtonModule, MatCardModule],
-  template: `
-    <mat-toolbar color="primary">
-      <span>Material demo</span>
-    </mat-toolbar>
-
-    <div class="cards">
-      <mat-card>
-        <mat-card-title>Responsive card</mat-card-title>
-        <mat-card-content>
-          <p>Angular Material component with CSS Grid layout.</p>
-        </mat-card-content>
-        <button mat-raised-button color="accent">Action</button>
-      </mat-card>
-    </div>
-  `,
-  styles: [`
-    .cards {
-      margin-top: 1rem;
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-  `],
+  templateUrl: './material-demo.component.html',
+  styleUrl: './material-demo.component.scss'
 })
 export class MaterialDemoComponent {}

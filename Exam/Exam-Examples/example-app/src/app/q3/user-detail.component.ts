@@ -6,10 +6,8 @@ import { NgIf } from '@angular/common';
   selector: 'app-user-detail',
   standalone: true,
   imports: [NgIf],
-  template: `
-    <h3>User detail</h3>
-    <p *ngIf="userId">Loaded user with id: {{ userId }}</p>
-  `,
+  templateUrl: './user-detail.component.html',
+  styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent {
   private route = inject(ActivatedRoute);

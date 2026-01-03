@@ -8,10 +8,7 @@ import { SelectedUserComponent } from '../users/selected-user/selected-user.comp
   selector: 'app-q1-page',
   standalone: true,
   imports: [UserListComponent, SelectedUserComponent],
-  template: `
-    <h2>Question 1 – Angular basics</h2>
-    <app-user-list></app-user-list>
-    <app-selected-user></app-selected-user>
-  `,
+  templateUrl: './q1-page.component.html',
+  styleUrl: './q1-page.component.scss'
 })
 export class Q1PageComponent {}

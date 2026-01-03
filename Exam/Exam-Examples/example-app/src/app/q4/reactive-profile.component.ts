@@ -5,17 +5,8 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
   selector: 'app-reactive-profile',
   standalone: true,
   imports: [ReactiveFormsModule],
-  template: `
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <label for="first-name">First name</label>
-      <input id="first-name" type="text" formControlName="firstName" />
-      @if (profileForm.controls.firstName.invalid &&
-           (profileForm.controls.firstName.dirty || profileForm.controls.firstName.touched)) {
-        <div class="error">First name is required</div>
-      }
-      <button type="submit" [disabled]="profileForm.invalid">Save</button>
-    </form>
-  `,
+  templateUrl: './reactive-profile.component.html',
+  styleUrl: './reactive-profile.component.scss'
 })
 export class ReactiveProfileComponent {
   private fb = inject(FormBuilder);

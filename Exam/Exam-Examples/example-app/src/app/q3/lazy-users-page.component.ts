@@ -3,9 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-lazy-users-page',
   standalone: true,
-  template: `
-    <h3>Lazy Users Page</h3>
-    <p>This component was loaded lazily via loadComponent.</p>
-  `,
+  templateUrl: './lazy-users-page.component.html',
+  styleUrl: './lazy-users-page.component.scss'
 })
 export class LazyUsersPageComponent {}

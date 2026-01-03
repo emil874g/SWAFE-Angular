@@ -8,18 +8,7 @@ import { UserSearchComponent } from '../users/user-search/user-search.component'
   selector: 'app-q2-page',
   standalone: true,
   imports: [UserListComponent, UserSearchComponent],
-  template: `
-    <h2>Question 2 – Reactive programming & HttpClient</h2>
-
-    <section>
-      <h3>Users from Observable</h3>
-      <app-user-list></app-user-list>
-    </section>
-
-    <section>
-      <h3>Search with RxJS operators</h3>
-      <app-user-search></app-user-search>
-    </section>
-  `,
+  templateUrl: './q2-page.component.html',
+  styleUrl: './q2-page.component.scss'
 })
 export class Q2PageComponent {}
