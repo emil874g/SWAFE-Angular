@@ -1,0 +1,32 @@
+<main class="app">
+  <h1>{{ title }}</h1>
+  <p class="subtitle">
+    This is a very simple Progressive Web App built with Angular.
+  </p>
+
+  <section class="card">
+    <h2>Offline counter</h2>
+    <p>Try installing the app and using it offline.</p>
+
+    <div class="counter">
+      <button type="button" (click)="decrement()">−</button>
+      <span>{{ counter() }}</span>
+      <button type="button" (click)="increment()">+</button>
+    </div>
+
+    <button type="button" class="reset" (click)="reset()">Reset</button>
+  </section>
+
+  <section class="hint">
+    <ol>
+      <li>Build production and serve the app.</li>
+      <li>Open DevTools → Application: see manifest and service worker.</li>
+      <li>Install the app from the browser menu.</li>
+      <li>Go Offline in DevTools → Network and refresh.</li>
+      <li>
+        The page still loads (cached by service worker) and the counter still
+        works because all logic is client‑side.
+      </li>
+    </ol>
+  </section>
+</main>
