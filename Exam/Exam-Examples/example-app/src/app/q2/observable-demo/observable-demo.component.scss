@@ -1,0 +1,74 @@
+.observable-demo {
+  padding: 20px;
+}
+
+.demo-section {
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.demo-section h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-item {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.post-item h4 {
+  margin: 0 0 8px 0;
+  color: #2196F3;
+}
+
+.post-item p {
+  margin: 0;
+  color: #666;
+}
+
+.counter-display {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4CAF50;
+  padding: 10px;
+  background-color: white;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.loading {
+  color: #ff9800;
+  font-style: italic;
+}
+
+.error {
+  color: #f44336;
+  padding: 10px;
+  background-color: #ffebee;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #2196F3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #0b7dda;
+}

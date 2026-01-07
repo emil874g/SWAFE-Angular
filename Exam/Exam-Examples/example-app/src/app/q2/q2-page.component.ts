@@ -1,13 +1,13 @@
-// Q2: focus on Observables + "HTTP" + operators.
+// Q2: Reactive programming with Observables, RxJS, and HttpClient
 
 import { Component } from '@angular/core';
-import { UserListComponent } from '../users/user-list/user-list.component';
-import { UserSearchComponent } from '../users/user-search/user-search.component';
+import { ObservableDemoComponent } from './observable-demo/observable-demo.component';
+import { SearchDemoComponent } from './search-demo/search-demo.component';
 
 @Component({
   selector: 'app-q2-page',
   standalone: true,
-  imports: [UserListComponent, UserSearchComponent],
+  imports: [ObservableDemoComponent, SearchDemoComponent],
   templateUrl: './q2-page.component.html',
   styleUrl: './q2-page.component.scss'
 })
