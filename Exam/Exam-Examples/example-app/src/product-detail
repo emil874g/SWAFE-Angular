@@ -1,0 +1,19 @@
+<div class="product-detail">
+  <h3>Product Detail Page</h3>
+
+  <div class="detail-box">
+    <p><strong>Product ID from route:</strong> {{ productId }}</p>
+    <p><strong>Query Parameter (search):</strong> {{ searchTerm || 'None' }}</p>
+    <p><strong>Full URL:</strong> {{ currentUrl }}</p>
+  </div>
+
+  <div class="navigation">
+    <button (click)="goBack()">← Back to List</button>
+    <button (click)="goToProduct(productId + 1)">Next Product →</button>
+  </div>
+
+  <div class="info">
+    <h4>How Route Parameters Were Accessed:</h4>
+    <pre>{{ explanation }}</pre>
+  </div>
+</div>

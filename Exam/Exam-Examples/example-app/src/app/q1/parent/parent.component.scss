@@ -1,0 +1,53 @@
+.parent-container {
+  padding: 20px;
+}
+
+.section {
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.section h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.item-list li {
+  padding: 8px;
+  margin: 5px 0;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.highlight {
+  background-color: yellow;
+  font-weight: bold;
+}
+
+button {
+  background-color: #2196F3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #0b7dda;
+}
+
+.notification {
+  padding: 10px;
+  background-color: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  margin-top: 10px;
+}

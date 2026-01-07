@@ -1,13 +1,12 @@
-// Q1: show list + selected user to talk about components, DI, communication.
+// Q1: Angular basics - components, services, pipes, directives, DI, communication
 
 import { Component } from '@angular/core';
-import { UserListComponent } from '../users/user-list/user-list.component';
-import { SelectedUserComponent } from '../users/selected-user/selected-user.component';
+import { ParentComponent } from './parent/parent.component';
 
 @Component({
   selector: 'app-q1-page',
   standalone: true,
-  imports: [UserListComponent, SelectedUserComponent],
+  imports: [ParentComponent],
   templateUrl: './q1-page.component.html',
   styleUrl: './q1-page.component.scss'
 })

@@ -1,7 +1,37 @@
-<h2>Question 3 – Routing & SSR</h2>
+<div class="q3-container">
+  <h1>Question 3 – Routing & SSR</h1>
+  <p class="intro">
+    This page demonstrates: <strong>Routing</strong>, <strong>Lazy Loading</strong>,
+    <strong>Route Parameters</strong>, <strong>Route Guards</strong>, and <strong>Server-Side Rendering (SSR)</strong>.
+  </p>
 
-<ul>
-  <li><a [routerLink]="['/q3/user', 42]">Route params: /q3/user/42</a></li>
-  <li><a [routerLink]="['/lazy-users']">Lazy-loaded users page</a></li>
-  <li><a [routerLink]="['/q3/admin']">Guarded admin route</a></li>
-</ul>
+  <!-- Navigation Links -->
+  <div class="nav-section">
+    <h3>🧭 Navigation Demos:</h3>
+    <div class="nav-links">
+      <a [routerLink]="['/q3/lazy']" class="nav-button">
+        ⚡ Lazy-Loaded Component
+      </a>
+      <a [routerLink]="['/q3/protected']" class="nav-button">
+        🔒 Protected Route (Guard)
+      </a>
+    </div>
+  </div>
+
+  <!-- Product List with Routing -->
+  <div class="demo-section">
+    <h2>1. Routing & Route Parameters</h2>
+    <app-product-list></app-product-list>
+  </div>
+
+  <!-- SSR Explanation -->
+  <div class="demo-section">
+    <h2>2. Server-Side Rendering</h2>
+    <app-ssr-demo></app-ssr-demo>
+  </div>
+
+  <!-- Nested Routes Outlet -->
+  <div class="nested-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

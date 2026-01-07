@@ -1,0 +1,33 @@
+.child-container {
+  padding: 15px;
+  background-color: #e8f5e9;
+  border: 2px solid #4CAF50;
+  border-radius: 4px;
+}
+
+.child-container h4 {
+  margin-top: 0;
+  color: #2e7d32;
+}
+
+.input-section {
+  margin: 10px 0;
+}
+
+.input-section p {
+  margin: 5px 0;
+  color: #555;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}

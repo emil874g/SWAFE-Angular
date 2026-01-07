@@ -1,0 +1,136 @@
+<!-- parent.component.html -->
+<!-- Q1: Parent Component Template -->
+
+<div class="parent-container">
+  <h2>{{ title | uppercase }}</h2>
+
+  <!-- 1. DIRECTIVE DEMO: Built-in attribute directives -->
+  <div class="directive-demo">
+    <h3>1. Built-in Directives (NgClass, NgStyle)</h3>
+    <p [ngClass]="{ 'highlighted': isHighlighted }">
+      Click the button to toggle highlight!
+    </p>
+    <button (click)="toggleHighlight()">Toggle Highlight (NgClass)</button>
+
+    <p [ngStyle]="{ 'color': 'blue', 'font-weight': 'bold', 'margin-top': '10px' }">
+      This text uses NgStyle directive for inline styling!
+    </p>
+  </div>
+
+  <!-- 2. PIPE DEMO: Built-in pipes -->
+  <div class="pipe-demo">
+    <h3>2. Built-in Pipes</h3>
+    <p>Original: "angular"</p>
+    <p>Uppercase: {{ 'angular' | uppercase }}</p>
+    <p>Lowercase: {{ 'TYPESCRIPT' | lowercase }}</p>
+    <p>Date: {{ currentDate | date:'medium' }}</p>
+    <p>Date (short): {{ currentDate | date:'short' }}</p>
+  </div>
+
+  <!-- 3. SERVICE + DI DEMO: Using injected service -->
+  <div class="service-demo">
+    <h3>3. Service & Dependency Injection Demo</h3>
+    <p>Total items from service: {{ getItemCount() }}</p>
+    <button (click)="addNewItem()">Add Item via Service</button>
+
+    <!-- 4. STRUCTURAL DIRECTIVE: *ngFor -->
+    <ul>
+      <li *ngFor="let item of items">
+        {{ item.id }}. {{ item.name }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- 5. COMPONENT COMMUNICATION: Parent → Child (@Input) -->
+  <div class="communication-demo">
+    <h3>4. Component-to-Component Communication</h3>
+
+    <!-- Pass data to child via @Input property binding -->
+    <!-- Receive events from child via @Output event binding -->
+    <app-child
+      [message]="messageToChild"
+      [count]="getItemCount()"
+      (notify)="handleChildNotification($event)">
+    </app-child>
+
+    <!-- Display notification received from child -->
+    <div class="notification" *ngIf="notificationFromChild">
+      <p><strong>Notification from child:</strong></p>
+      <p>{{ notificationFromChild }}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .parent-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+
+  .parent-container > div {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+
+  h2 {
+    color: #333;
+  }
+
+  h3 {
+    color: #666;
+    margin-top: 0;
+  }
+
+  button {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+
+  button:hover {
+    background-color: #0b7dda;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 5px;
+    margin: 5px 0;
+    background-color: white;
+    border-left: 3px solid #2196F3;
+    padding-left: 10px;
+  }
+
+  .notification {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+
+  .highlighted {
+    background-color: yellow;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+
+  .directive-demo p {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+</style>
