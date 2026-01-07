@@ -1,0 +1,29 @@
+<div class="store-container">
+  <h4>NgRx SignalStore Demo</h4>
+
+  <div class="stats">
+    <p><strong>Total Todos:</strong> {{ store.todoCount() }}</p>
+    <p><strong>Completed:</strong> {{ store.completedCount() }}</p>
+  </div>
+
+  <div class="add-todo">
+    <input
+      type="text"
+      [value]="newTodo"
+      (input)="onInputChange($event)"
+      placeholder="Add a new todo..."
+      (keyup.enter)="addTodo()">
+    <button (click)="addTodo()">Add</button>
+  </div>
+
+  <ul class="todo-list">
+    <li *ngFor="let todo of store.todos()" [class.completed]="todo.completed">
+      <input
+        type="checkbox"
+        [checked]="todo.completed"
+        (change)="store.toggleTodo(todo.id)">
+      <span>{{ todo.title }}</span>
+      <button (click)="store.removeTodo(todo.id)">Delete</button>
+    </li>
+  </ul>
+</div>

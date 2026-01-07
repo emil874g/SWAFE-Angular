@@ -1,13 +1,43 @@
 <h2>Question 5 – Signals & Styling</h2>
 
+<div class="intro">
+  <p>This page demonstrates Angular Signals, NgRx SignalStore, Responsive Web Design, and Angular Material.</p>
+</div>
+
 <section class="q5-layout">
   <div class="q5-panel">
-    <h3>Signals demo</h3>
+    <h3>1. Angular Signals</h3>
+    <p class="description">
+      Signals provide reactive state management with fine-grained change detection.
+      They're simpler than RxJS for local state and offer better performance.
+    </p>
     <app-signals-demo></app-signals-demo>
   </div>
 
   <div class="q5-panel">
-    <h3>Angular Material + responsive layout</h3>
+    <h3>2. NgRx SignalStore</h3>
+    <p class="description">
+      SignalStore combines signals with centralized state management.
+      It offers less boilerplate than traditional NgRx Store while maintaining type safety.
+    </p>
+    <app-signal-store-demo></app-signal-store-demo>
+  </div>
+
+  <div class="q5-panel">
+    <h3>3. Responsive Web Design</h3>
+    <p class="description">
+      Using Flexbox for one-dimensional layouts, CSS Grid for two-dimensional layouts,
+      and media queries to adapt to different screen sizes.
+    </p>
+    <app-responsive-demo></app-responsive-demo>
+  </div>
+
+  <div class="q5-panel">
+    <h3>4. Angular Material</h3>
+    <p class="description">
+      Pre-built, accessible UI components following Material Design guidelines.
+      Provides consistent styling and behavior across your application.
+    </p>
     <app-material-demo></app-material-demo>
   </div>
 </section>

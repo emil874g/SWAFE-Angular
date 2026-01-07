@@ -1,0 +1,15 @@
+<div class="signals-container">
+  <h4>Angular Signals Demo</h4>
+
+  <div class="signal-display">
+    <p><strong>Count:</strong> {{ count() }}</p>
+    <p><strong>Double Count:</strong> {{ doubleCount() }}</p>
+    <p><strong>Is Even:</strong> {{ isEven() ? 'Yes' : 'No' }}</p>
+  </div>
+
+  <div class="button-group">
+    <button (click)="decrement()">-</button>
+    <button (click)="increment()">+</button>
+    <button (click)="reset()">Reset</button>
+  </div>
+</div>

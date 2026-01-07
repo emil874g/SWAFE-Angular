@@ -1,0 +1,35 @@
+<div class="responsive-container">
+  <h4>Responsive Design Demo</h4>
+
+  <!-- Flexbox Example -->
+  <section class="section">
+    <h5>Flexbox Layout</h5>
+    <div class="flexbox-demo">
+      <div class="flex-item">Item 1</div>
+      <div class="flex-item">Item 2</div>
+      <div class="flex-item">Item 3</div>
+      <div class="flex-item">Item 4</div>
+    </div>
+  </section>
+
+  <!-- Grid Example -->
+  <section class="section">
+    <h5>CSS Grid Layout</h5>
+    <div class="grid-demo">
+      <div class="grid-item" *ngFor="let item of items">
+        Grid {{ item }}
+      </div>
+    </div>
+  </section>
+
+  <!-- Media Query Example -->
+  <section class="section">
+    <h5>Media Query Demo</h5>
+    <div class="media-demo">
+      <p>Resize the window to see the layout change!</p>
+      <div class="responsive-box">Desktop: 3 columns</div>
+      <div class="responsive-box">Tablet: 2 columns</div>
+      <div class="responsive-box">Mobile: 1 column</div>
+    </div>
+  </section>
+</div>
