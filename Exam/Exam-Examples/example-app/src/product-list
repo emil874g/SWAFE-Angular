@@ -1,9 +1,0 @@
-<div class="product-list">
-  <h3>Product List</h3>
-  <p>Click a product to navigate to its detail page</p>
-
-  <div *ngFor="let product of products" class="product-item" (click)="viewProduct(product.id)">
-    <h4>{{ product.name }}</h4>
-    <p>Price: ${{ product.price }}</p>
-  </div>
-</div>

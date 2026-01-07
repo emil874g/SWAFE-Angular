@@ -1,0 +1,55 @@
+<div class="template-form">
+  <h3>Template-Driven Forms</h3>
+  <p>Form created in template with ngModel and validation attributes</p>
+
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+    <div class="form-group">
+      <label for="name">Name *</label>
+      <input id="name" name="name" type="text" [(ngModel)]="model.name"
+             #name="ngModel" required minlength="3" class="form-control"
+             [class.invalid]="submitted && name.invalid">
+      <div *ngIf="submitted && name.invalid" class="error">
+        <span *ngIf="name.errors?.['required']">Name is required</span>
+        <span *ngIf="name.errors?.['minlength']">Name must be at least 3 characters</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input id="email" name="email" type="email" [(ngModel)]="model.email"
+             #email="ngModel" required email class="form-control"
+             [class.invalid]="submitted && email.invalid">
+      <div *ngIf="submitted && email.invalid" class="error">
+        <span *ngIf="email.errors?.['required']">Email is required</span>
+        <span *ngIf="email.errors?.['email']">Invalid email format</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age *</label>
+      <input id="age" name="age" type="number" [(ngModel)]="model.age"
+             #age="ngModel" required min="18" max="100" class="form-control"
+             [class.invalid]="submitted && age.invalid">
+      <div *ngIf="submitted && age.invalid" class="error">
+        <span *ngIf="age.errors?.['required']">Age is required</span>
+        <span *ngIf="age.errors?.['min']">Must be at least 18</span>
+        <span *ngIf="age.errors?.['max']">Must be under 100</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="bio">Bio (optional)</label>
+      <textarea id="bio" name="bio" [(ngModel)]="model.bio"
+                #bio="ngModel" maxlength="200" class="form-control" rows="3"
+                [class.invalid]="submitted && bio.invalid"></textarea>
+      <div *ngIf="submitted && bio.invalid" class="error">
+        <span *ngIf="bio.errors?.['maxlength']">Bio must be under 200 characters</span>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn-submit">Submit</button>
+      <button type="button" (click)="reset(userForm)" class="btn-reset">Reset</button>
+    </div>
+  </form>
+</div>

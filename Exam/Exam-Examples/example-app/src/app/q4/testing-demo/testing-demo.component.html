@@ -1,0 +1,16 @@
+<div class="testing-demo">
+  <h3>{{ title }}</h3>
+  
+  <div class="counter">
+    <p>Count: <strong>{{ count }}</strong></p>
+    <p>Is Even: <strong>{{ isEven(count) ? 'Yes' : 'No' }}</strong></p>
+    
+    <div class="button-group">
+      <button (click)="increment()">Increment</button>
+      <button (click)="decrement()">Decrement</button>
+      <button (click)="reset()">Reset</button>
+    </div>
+  </div>
+
+  <p class="note">Check testing-demo.component.spec.ts for test examples</p>
+</div>

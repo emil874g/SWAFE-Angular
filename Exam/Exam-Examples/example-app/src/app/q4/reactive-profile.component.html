@@ -1,9 +1,0 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-  <label for="first-name">First name</label>
-  <input id="first-name" type="text" formControlName="firstName" />
-  @if (profileForm.controls.firstName.invalid &&
-       (profileForm.controls.firstName.dirty || profileForm.controls.firstName.touched)) {
-    <div class="error">First name is required</div>
-  }
-  <button type="submit" [disabled]="profileForm.invalid">Save</button>
-</form>

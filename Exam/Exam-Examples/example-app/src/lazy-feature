@@ -1,8 +1,0 @@
-<div class="lazy-feature">
-  <h3>Lazy-Loaded Component</h3>
-  <p>This component was loaded on-demand (check Network tab)</p>
-
-  <div class="code-example">
-    <pre>{{ lazyLoadingExample }}</pre>
-  </div>
-</div>
