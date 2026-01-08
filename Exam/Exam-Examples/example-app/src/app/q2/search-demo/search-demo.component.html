@@ -1,103 +1,41 @@
 <!-- search-demo.component.html -->
-<!-- Q2: Search Demo Template -->
+<!-- Q2: Simple Reactive Search -->
 
-<div class="search-demo">
-  <h3>Reactive Search with RxJS</h3>
+<div class="demo-container">
+  <h3>Reactive Search Example</h3>
+  <p><em>Uses: debounceTime(300ms) + distinctUntilChanged()</em></p>
 
-  <div class="search-box">
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      (ngModelChange)="onSearchChange($event)"
-      placeholder="Search users by name or email..."
-      class="search-input"
-    />
-    <span *ngIf="isSearching" class="searching">Searching...</span>
-  </div>
-
-  <p class="info">
-    <em>Uses: debounceTime(300ms), distinctUntilChanged()</em>
-  </p>
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchChange($event)"
+    placeholder="Type to search users..."
+  />
 
   <div class="results">
-    <div *ngIf="users.length === 0" class="no-results">
-      No users found
-    </div>
-
+    <p>Found {{ users.length }} users</p>
     <div *ngFor="let user of users" class="user-card">
-      <h4>{{ user.name }}</h4>
+      <strong>{{ user.name }}</strong>
       <p>{{ user.email }}</p>
     </div>
   </div>
 </div>
 
 <style>
-  .search-demo {
-    padding: 20px;
-  }
-
-  .search-box {
-    position: relative;
-    margin: 20px 0;
-  }
-
-  .search-input {
+  .demo-container { padding: 20px; }
+  input {
     width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-
-  .search-input:focus {
-    outline: none;
-    border-color: #2196F3;
-  }
-
-  .searching {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #2196F3;
-    font-size: 14px;
-  }
-
-  .info {
-    color: #666;
-    font-size: 14px;
+    padding: 10px;
     margin: 10px 0;
+    font-size: 16px;
   }
-
-  .results {
-    margin-top: 20px;
-  }
-
+  .results { margin-top: 20px; }
   .user-card {
-    background-color: white;
     padding: 15px;
     margin: 10px 0;
     border: 1px solid #ddd;
     border-radius: 4px;
-    border-left: 4px solid #2196F3;
   }
-
-  .user-card h4 {
-    margin: 0 0 8px 0;
-    color: #333;
-  }
-
-  .user-card p {
-    margin: 0;
-    color: #666;
-  }
-
-  .no-results {
-    padding: 20px;
-    text-align: center;
-    color: #999;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-  }
+  .user-card strong { display: block; }
+  .user-card p { color: #666; margin: 5px 0 0 0; }
 </style>

@@ -1,61 +1,107 @@
 # Question 2 - Reactive Programming & HttpClient
 
-This folder demonstrates reactive programming concepts for the oral exam.
+**Simplified examples for easy presentation**
 
-## Topics Covered
+## Key Concepts
 
-### 1. Observables
-- **Cold Observables**: Don't execute until subscribed (HttpClient returns these)
-- **Hot Observables**: Execute regardless of subscriptions
-- **Subscription Management**: Manual subscriptions, async pipe, takeUntil pattern
-- **Lazy Evaluation**: Observables don't execute until subscribed
+### 1. **Reactive Programming with Observables**
 
-See: [observable-demo.component.ts](observable-demo.component.ts)
+- **Observable**: Stream of data over time
+- **Cold Observable**: Doesn't execute until subscribed (like HttpClient)
+- **Lazy Evaluation**: Only runs when you call `.subscribe()`
+- **Can emit**: 0, 1, or many values
 
-### 2. RxJS Operators
-- **Transformation**: `map`, `switchMap`
-- **Filtering**: `filter`, `distinctUntilChanged`
-- **Timing**: `debounceTime`, `delay`
-- **Utility**: `take`, `takeUntil`, `catchError`
+### 2. **HttpClient in Angular**
 
-See: [observable-demo.component.ts](observable-demo.component.ts), [search-demo.component.ts](search-demo.component.ts)
-
-### 3. HttpClient
-- **GET Requests**: Fetching data from API
-- **POST Requests**: Sending data to API
-- **Type Safety**: Using generics `http.get<Type>()`
-- **Error Handling**: Using `catchError` operator
-- **Automatic JSON Parsing**: Built into HttpClient
-
-See: [api.service.ts](api.service.ts)
-
-### 4. Reactive Programming Best Practices
-- **Async Pipe**: Let Angular handle subscriptions/unsubscriptions
-- **takeUntil Pattern**: Clean up subscriptions on component destroy
-- **Error Handling**: Always use `catchError` for HTTP requests
-- **Debouncing**: Use `debounceTime` for search inputs
-- **Cancellation**: Use `switchMap` to cancel previous requests
-
-See: All components
-
-### 5. Subject vs Observable
-- **Observable**: Can only subscribe (observer)
-- **Subject**: Can subscribe AND emit values (both observer and observable)
-- **BehaviorSubject**: Remembers last value, emits to new subscribers
-
-## File Structure
-
+```typescript
+// Always returns Observables
+http.get<Type>(url); // GET request
+http.post<Type>(url, data); // POST request
 ```
-q2/
-├── README.md (this file)
-├── q2-page.component.ts          # Main page wrapper
-├── q2-page.component.html        # Page template
-├── q2-page.component.scss        # Page styles
-├── api.service.ts                # HttpClient service with API calls
-├── observable-demo.component.ts  # Demonstrates Observables, HttpClient, operators
-├── observable-demo.component.html
-├── search-demo.component.ts      # Demonstrates reactive search with RxJS
-└── search-demo.component.html
+
+**Best Practices:**
+
+- ✅ Use TypeScript generics for type safety
+- ✅ Use async pipe (no manual subscribe/unsubscribe)
+- ✅ HttpClient is injected via DI
+- ✅ Automatically parses JSON
+
+### 3. **RxJS Operators**
+
+```typescript
+// Common operators:
+map(); // Transform data
+filter(); // Filter values
+debounceTime(ms); // Wait before emitting
+distinctUntilChanged(); // Only emit if changed
+```
+
+### 4. **Subject**
+
+- Special Observable that can **emit** values
+- Used for event streams (like search input)
+
+```typescript
+private searchSubject = new Subject<string>();
+searchSubject.next(value);  // Emit value
+searchSubject.subscribe();  // Subscribe
+```
+
+## Code Examples
+
+### Example 1: HttpClient with Async Pipe
+
+**File:** [observable-demo.component.ts](observable-demo/observable-demo.component.ts)
+
+Shows:
+
+- GET request using HttpClient
+- Async pipe pattern (preferred)
+- POST request example
+
+### Example 2: Reactive Search
+
+**File:** [search-demo.component.ts](search-demo/search-demo.component.ts)
+
+Shows:
+
+- Subject for user input
+- `debounceTime()` - wait for user to stop typing
+- `distinctUntilChanged()` - only search if value changed
+
+### Example 3: API Service
+
+**File:** [api.service.ts](api.service.ts)
+
+Shows:
+
+- HttpClient injection
+- Returning Observables
+- Using `map()` operator to transform data
+
+## Quick Comparison
+
+| Manual Subscribe                | Async Pipe       |
+| ------------------------------- | ---------------- |
+| `subscribe()` + `unsubscribe()` | Automatic        |
+| More code                       | Less code        |
+| Risk of memory leaks            | No leaks         |
+| ❌ Not recommended              | ✅ Best practice |
+
+## Running the Demo
+
+1. Navigate to Q2 page in the app
+2. Click "Observable Demo" to see HttpClient
+3. Click "Search Demo" to see reactive search
+   ├── q2-page.component.ts # Main page wrapper
+   ├── q2-page.component.html # Page template
+   ├── q2-page.component.scss # Page styles
+   ├── api.service.ts # HttpClient service with API calls
+   ├── observable-demo.component.ts # Demonstrates Observables, HttpClient, operators
+   ├── observable-demo.component.html
+   ├── search-demo.component.ts # Demonstrates reactive search with RxJS
+   └── search-demo.component.html
+
 ```
 
 ## How to Explain (10-minute structure)
@@ -86,3 +132,4 @@ q2/
 ## Running the Example
 
 Navigate to the Q2 tab to see live demos of HttpClient and reactive search.
+```

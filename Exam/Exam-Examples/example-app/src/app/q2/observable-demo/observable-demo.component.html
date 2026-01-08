@@ -1,135 +1,32 @@
 <!-- observable-demo.component.html -->
-<!-- Q2: Observable Demo Template -->
+<!-- Q2: Super Simple Observable Demo -->
 
-<div class="observable-demo">
-  <h3>1. HttpClient Observable Example</h3>
+<div class="demo-container">
+  <h3>Observable + HttpClient Example</h3>
 
-  <div class="demo-section">
-    <button (click)="loadPosts()" [disabled]="isLoading">
-      {{ isLoading ? 'Loading...' : 'Load Posts (HttpClient)' }}
-    </button>
+  <button (click)="loadUsers()">Load Users</button>
+  <button (click)="loadFilteredUsers()">Load Users (Uppercase)</button>
 
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-
-    <div *ngIf="posts.length > 0" class="posts-list">
-      <div *ngFor="let post of posts" class="post-item">
-        <h4>{{ post.title }}</h4>
-        <p>{{ post.body }}</p>
-        <small>Post ID: {{ post.id }}</small>
-      </div>
-    </div>
-  </div>
-
-  <h3>2. POST Request Example</h3>
-  <div class="demo-section">
-    <button (click)="createNewPost()">Create New Post</button>
-    <p><em>Opens alert with created post ID (simulated by JSONPlaceholder)</em></p>
-  </div>
-
-  <h3>3. RxJS Operators Example</h3>
-  <div class="demo-section">
-    <p><strong>Counter (interval + map + filter + take):</strong></p>
-    <p class="counter">Current Value: {{ counterValue }}</p>
-    <p><em>Shows only even numbers from 1-10, max 5 values</em></p>
-  </div>
-
-  <h3>4. Async Pipe Example</h3>
-  <div class="demo-section">
-    <p><strong>Local Data (with async pipe):</strong></p>
-    <ul>
-      <li *ngFor="let item of localData$ | async">{{ item }}</li>
-    </ul>
-    <p><em>Async pipe automatically subscribes/unsubscribes</em></p>
+  <!-- BEST PRACTICE: Using async pipe -->
+  <!-- Angular handles subscribe/unsubscribe automatically -->
+  <div class="user-list">
+    <h4>Users from API:</h4>
+    <div *ngFor="let user of users$ | async" class="user-card">
+      <strong>{{ user.name }}</strong>
+      <p>{{ user.email }}</p>
   </div>
 </div>
 
 <style>
-  .observable-demo {
-    padding: 20px;
-  }
-
-  .demo-section {
-    margin: 20px 0;
+  .demo-container { padding: 20px; }
+  button { margin: 5px; padding: 10px 20px; }
+  .user-list { margin-top: 20px; }
+  .user-card {
     padding: 15px;
+    margin: 10px 0;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-
-  h3 {
-    color: #666;
-    margin-top: 20px;
-  }
-
-  button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-
-  button:hover:not(:disabled) {
-    background-color: #45a049;
-  }
-
-  button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-
-  .posts-list {
-    margin-top: 15px;
-  }
-
-  .post-item {
-    background-color: white;
-    padding: 15px;
-    margin: 10px 0;
-    border-left: 4px solid #4CAF50;
     border-radius: 4px;
   }
-
-  .post-item h4 {
-    margin: 0 0 10px 0;
-    color: #333;
-  }
-
-  .post-item p {
-    margin: 0 0 10px 0;
-    color: #666;
-  }
-
-  .post-item small {
-    color: #999;
-  }
-
-  .counter {
-    font-size: 24px;
-    font-weight: bold;
-    color: #4CAF50;
-  }
-
-  .error {
-    color: #f44336;
-    padding: 10px;
-    background-color: #ffebee;
-    border-radius: 4px;
-    margin: 10px 0;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    padding: 8px;
-    margin: 5px 0;
-    background-color: white;
-    border-left: 3px solid #2196F3;
-    padding-left: 15px;
-  }
+  .user-card strong { display: block; margin-bottom: 5px; }
+  .user-card p { color: #666; margin: 0; }
 </style>

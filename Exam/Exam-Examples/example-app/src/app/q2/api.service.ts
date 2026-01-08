@@ -1,17 +1,10 @@
 // api.service.ts
-// Q2: Service demonstrating HttpClient and Observables
+// Q2: Super Simple HttpClient Example
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { delay, map, catchError } from 'rxjs/operators';
-
-export interface Post {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-}
+import { Observable, of } from 'rxjs';
+import { map, filter, catchError } from 'rxjs/operators';
 
 export interface User {
   id: number;
@@ -20,83 +13,37 @@ export interface User {
 }
 
 /**
- * API Service using HttpClient
- * Demonstrates:
- * - HttpClient for network communication
- * - Observables as return types
- * - RxJS operators for data transformation
- * - Error handling
+ * BEST PRACTICE:
+ * - Put HTTP logic in services
+ * - Return Observables (don't subscribe here)
+ * - Use async pipe in component template
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ApiService {
-  // Using JSONPlaceholder - a free fake REST API for testing
-  private readonly apiUrl = 'https://jsonplaceholder.typicode.com';
+  private apiUrl = 'https://jsonplaceholder.typicode.com';
 
-  /**
-   * Constructor: HttpClient injected via DI
-   * HttpClient is Angular's built-in service for HTTP communication
-   */
-  constructor(private http: HttpClient) {
-    console.log('ApiService instantiated');
-  }
+  // Inject HttpClient
+  constructor(private http: HttpClient) {}
 
-  /**
-   * GET request - Fetch posts
-   * Returns: Cold Observable that emits once when subscribed
-   */
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/posts`).pipe(
-      // RxJS operator: transform the data
-      map(posts => posts.slice(0, 5)), // Take only first 5 posts
-      // Error handling
-      catchError(error => {
-        console.error('Error fetching posts:', error);
-        return throwError(() => new Error('Failed to fetch posts'));
-      })
-    );
-  }
-
-  /**
-   * GET request with ID parameter
-   */
-  getPostById(id: number): Observable<Post> {
-    return this.http.get<Post>(`${this.apiUrl}/posts/${id}`);
-  }
-
-  /**
-   * POST request - Create new post
-   * Demonstrates: sending data to server
-   */
-  createPost(post: Partial<Post>): Observable<Post> {
-    return this.http.post<Post>(`${this.apiUrl}/posts`, post);
-  }
-
-  /**
-   * GET users
-   */
+  // Simple GET request - returns Observable
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/users`).pipe(
-      map(users => users.slice(0, 3))
-    );
+    return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
 
-  /**
-   * Simulated async operation using Observable
-   * Demonstrates creating Observables without HTTP
-   */
-  getLocalData(): Observable<string[]> {
-    const data = ['Angular', 'RxJS', 'TypeScript', 'Observables'];
-    // 'of' creates an Observable from values
-    return of(data).pipe(
-      delay(500) // Simulate network delay
+  // Example with RxJS operators in pipe()
+  getUsers$(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/users`).pipe(
+      map(users => users.slice(0, 5)),  // Transform: take first 5
+      catchError(error => {
+        console.error('Error:', error);
+        return of([]);  // Fallback to empty array
+      })
     );
   }
 }
 
 /**
- * Key Concepts:
+ * KEY CONCEPTS:
  *
  * HttpClient:
  * - Angular's service for HTTP requests
